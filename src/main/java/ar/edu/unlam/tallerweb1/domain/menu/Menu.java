@@ -42,4 +42,12 @@ public class Menu {
     public int hashCode() {
         return Objects.hash(platos);
     }
+
+    public int calcularValor() {
+        int valor = 0;
+        for (Plato plato : platos) {
+            valor += plato.calcularValorEnBaseACalorias();
+        }
+        return valor;
+    }
 }

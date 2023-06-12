@@ -61,7 +61,17 @@ public class ControladorLoginTest {
 
     @Test
     public void dadoUnUsuarioInactivoNoSeInicieSesion(){
+        Usuario usuarioEsperado = new Usuario();
+        DatosLogin datosLogin = new DatosLogin();
 
+        when(request.getSession()).thenReturn(sesion);
+
+        when(sesion.getAttribute("Activo")).thenReturn(false);
+        when(servicioLogin.consultarUsuario(any(), any())).thenReturn(usuarioEsperado);
+
+        ModelAndView vista = controladorLogin.validarLogin(datosLogin, request);
+
+        assertThat(vista.getViewName()).isEqualTo("login");
     }
 
     //Cuando

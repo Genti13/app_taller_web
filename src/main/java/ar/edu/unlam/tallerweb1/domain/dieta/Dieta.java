@@ -21,6 +21,7 @@ public class Dieta {
 
     @ManyToOne
     private Usuario usuario;
+    private int puntaje;
 
 
     public Dieta() {
@@ -72,7 +73,13 @@ public class Dieta {
         this.id = id;
     }
 
+    public void setPuntaje(int puntaje) {
+        this.puntaje = puntaje;
+    }
 
+    public int getPuntaje() {
+        return this.puntaje;
+    }
 
 
 }

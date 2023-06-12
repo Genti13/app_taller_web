@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface RepositorioDieta {
 
-    public List<Rutina> get();
+    public List<Rutina> getRutinas();
+    public List<Dieta> getAllDietas();
 
     List<Dieta> buscarDietaConIDUsuario(Long idUsuario);
 

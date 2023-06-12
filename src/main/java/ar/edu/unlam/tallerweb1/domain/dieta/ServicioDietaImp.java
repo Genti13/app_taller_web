@@ -1,4 +1,5 @@
 package ar.edu.unlam.tallerweb1.domain.dieta;
+import ar.edu.unlam.tallerweb1.domain.menu.Ingrediente;
 import ar.edu.unlam.tallerweb1.domain.menu.Menu;
 import ar.edu.unlam.tallerweb1.domain.menu.MenuRestringidoException;
 import ar.edu.unlam.tallerweb1.domain.menu.Plato;
@@ -20,8 +21,8 @@ public class ServicioDietaImp implements ServicioDieta {
         ArrayList<Plato> platos = (ArrayList<Plato>) menu.getPlatos();
 
         for (Plato plato : platos) {
-            for (String ingrediente : plato.getIngredientes()) {
-                if (restricciones.contains(ingrediente)) {
+            for (Ingrediente ingrediente : plato.getIngredientes()) {
+                if (restricciones.contains(ingrediente.getNombre())) {
                     throw new MenuRestringidoException("El menú contiene ingredientes restringidos.");
                 }
             }
@@ -69,6 +70,25 @@ public class ServicioDietaImp implements ServicioDieta {
         if (index != -1) {
             dieta.getRutinas().set(index, rutinaNueva);
         }
+    }
+
+    @Override
+    public int calcularPuntaje(Dieta dieta) {
+        List<Rutina> rutinas = dieta.getRutinas();
+        List<Menu> menus = dieta.getMenus();
+
+        int puntajeRutina = 0;
+        int puntajeMenu = 0;
+
+        for(Rutina rutina : rutinas){
+            puntajeRutina += rutina.calcularValor();
+        }
+
+        for(Menu menu : menus){
+            puntajeMenu += menu.calcularValor();
+        }
+
+        return puntajeRutina+puntajeMenu;
     }
 
 }

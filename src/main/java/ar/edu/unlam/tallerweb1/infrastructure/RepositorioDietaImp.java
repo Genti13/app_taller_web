@@ -27,6 +27,16 @@ public class RepositorioDietaImp implements RepositorioDieta {
     }
 
     @Override
+    public List<Rutina> getRutinas() {
+        return null;
+    }
+
+    @Override
+    public List<Dieta> getAllDietas() {
+        return null;
+    }
+
+    @Override
     public List<Dieta> buscarDietaConIDUsuario(Long idUser) {
 
         Session session = sessionFactory.getCurrentSession();

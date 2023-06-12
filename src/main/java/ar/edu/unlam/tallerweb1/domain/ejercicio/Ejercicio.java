@@ -33,4 +33,7 @@ public class Ejercicio {
     }
 
 
+    public int getValorEnBaseACaloriasQuemadas() {
+        return this.duracion * 1;
+    }
 }

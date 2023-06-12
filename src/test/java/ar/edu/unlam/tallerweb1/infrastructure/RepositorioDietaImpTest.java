@@ -45,7 +45,6 @@ public class RepositorioDietaImpTest extends SpringTest {
         assertThat(session().isConnected()).isTrue();
         assertThat(dietasBuscadas).isNotNull();
         assertThat(dietasBuscadas).isEqualTo(dietas);
-
     }
 
 }

@@ -13,19 +13,43 @@ public class Plato {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long Id;
     @ElementCollection
-    private List<String> ingredientes;
+    private List<Ingrediente> ingredientes;
 
-    public Plato(List<String> ingredientes) {
+    public Plato(List<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;
     }
 
-    public Plato(String ingredientes) {
-        this.ingredientes = new ArrayList<String>();
+    public Plato(Ingrediente ingredientes) {
+        this.ingredientes = new ArrayList<>();
         this.ingredientes.add(ingredientes);
     }
+    public Plato() {
+    }
 
-    public void setIngredientes(List<String> ingredientes) {
+    public List<Ingrediente> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(List<Ingrediente> ingredientes) {
         this.ingredientes = ingredientes;
+    }
+
+    public void agregarIngrediente(Ingrediente ingrediente) {
+        this.ingredientes.add(ingrediente);
+    }
+
+    public void eliminarIngrediente(Ingrediente ingrediente) {
+        this.ingredientes.remove(ingrediente);
+    }
+
+    public int calcularValorEnBaseACalorias() {
+        int valor = 0;
+
+        for (Ingrediente ingrediente : ingredientes) {
+            valor += ingrediente.getCalorias();
+        }
+
+        return valor;
     }
 
     @Override
@@ -39,14 +63,5 @@ public class Plato {
     @Override
     public int hashCode() {
         return Objects.hash(ingredientes);
-    }
-
-    public Plato() {
-
-    }
-
-
-    public List<String> getIngredientes() {
-        return this.ingredientes;
     }
 }

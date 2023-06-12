@@ -51,4 +51,14 @@ public class Rutina {
     public void eliminarEjercicio(Ejercicio ejercicio) {
         ejercicios.remove(ejercicio);
     }
+
+    public int calcularValor() {
+        List<Ejercicio> ejercicios = this.ejercicios;
+        int valor = 0;
+
+       for(Ejercicio ejercicio: ejercicios){
+           valor += ejercicio.getValorEnBaseACaloriasQuemadas();
+       }
+        return valor;
+    }
 }
