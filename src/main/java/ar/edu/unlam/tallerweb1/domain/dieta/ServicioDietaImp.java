@@ -77,18 +77,13 @@ public class ServicioDietaImp implements ServicioDieta {
         List<Rutina> rutinas = dieta.getRutinas();
         List<Menu> menus = dieta.getMenus();
 
-        int puntajeRutina = 0;
         int puntajeMenu = 0;
-
-        for(Rutina rutina : rutinas){
-            puntajeRutina += rutina.calcularValor();
-        }
 
         for(Menu menu : menus){
             puntajeMenu += menu.calcularValor();
         }
 
-        return puntajeRutina+puntajeMenu;
+        return puntajeMenu;
     }
 
 }
