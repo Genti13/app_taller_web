@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.menu;
 
+import ar.edu.unlam.tallerweb1.domain.ejercicio.Ejercicio;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +24,16 @@ public class Menu {
         this.platos.add(plato);
     }
 
+    public Menu() {
+        this.platos = new ArrayList<Plato>();
+
+    }
+
     public void agregarPlato(Plato plato) {
         this.platos.add(plato);
     }
 
-    public Object getPlatos() {
+    public List<Plato> getPlatos() {
         return this.platos;
     }
 
