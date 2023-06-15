@@ -1,4 +1,5 @@
 package ar.edu.unlam.tallerweb1.domain.dieta;
+
 import ar.edu.unlam.tallerweb1.domain.menu.Ingrediente;
 import ar.edu.unlam.tallerweb1.domain.menu.Menu;
 import ar.edu.unlam.tallerweb1.domain.menu.MenuRestringidoException;
@@ -84,7 +85,7 @@ public class ServicioDietaImp implements ServicioDieta {
 
         int puntajeMenu = 0;
 
-        for(Menu menu : menus){
+        for (Menu menu : menus) {
             puntajeMenu += menu.calcularValor();
         }
 
@@ -93,33 +94,35 @@ public class ServicioDietaImp implements ServicioDieta {
 
     @Override
     public List<Dieta> dameRecomendadas(Persona persona) {
-        List<Dieta> todasLasDietas = repositorioDieta.getDietasRecomendadas();
+        List<Dieta> todasLasDietas = repositorioDieta.getAllDietas();
         List<Dieta> recomendadasParaLaPersona = new ArrayList<>();
 
-        //aca empezamos a filtrar:
+        for (Dieta dieta : todasLasDietas) {
+            boolean esDietaPermitida = true;
 
-        //De cada dieta, ver el menu
-        //De cada menu, ver el plato
-        //De cada plato, ver ingredientes
-        //Si no contiente veneno
-
-//        for(Dieta dieta : todasLasDietas){
-//
-//            if(!dieta.getMenus().algunoMataPersona()){
-//                recomendadasParaLaPersona.add(dieta);
-//            }
-//
-//
-//        }
-
-        //Luego =>
-
-        //De la Rutina actual, ver ejercicios
-        //De cada ejercicio ver si no mata a la persona
-        //recomendadasPáLaPErsona.add(rutinaACtual)
-
-
-        return  recomendadasParaLaPersona;
+            // Filtrar por ingredientes restringidos en el menú
+            for (Menu menu : dieta.getMenus()) {
+                for (Plato plato : menu.getPlatos()) {
+                    for (Ingrediente ingrediente : plato.getIngredientes()) {
+                        if (persona.getEstado().getRestricciones().contains(ingrediente.getNombre())) {
+                            esDietaPermitida = false;
+                        }
+                    }
+                }
+            }
+            // Filtrar por ejercicios restringidos en las rutinas
+            for (Rutina rutina : dieta.getRutinas()) {
+                for (Ejercicio ejercicio : rutina.getEjercicios()) {
+                    if (persona.getEstado().getRestricciones().contains(ejercicio.getNombre())) {
+                        esDietaPermitida = false;
+                    }
+                }
+            }
+            // Si la dieta es permitida, agregarla a las recomendadas para la persona
+            if (esDietaPermitida) {
+                recomendadasParaLaPersona.add(dieta);
+            }
+        }
+        return recomendadasParaLaPersona;
     }
-
 }

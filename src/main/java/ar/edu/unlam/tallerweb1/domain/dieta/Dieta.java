@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.dieta;
 
+import ar.edu.unlam.tallerweb1.domain.menu.Ingrediente;
+import ar.edu.unlam.tallerweb1.domain.ejercicio.Ejercicio;
 import ar.edu.unlam.tallerweb1.domain.menu.Menu;
 import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
@@ -19,6 +21,8 @@ public class Dieta {
     @OneToMany
     private List<Rutina> rutinas;
 
+    private List<Dieta> dietas;
+  
     @ManyToOne
     private Usuario usuario;
     private int puntaje;
@@ -26,9 +30,6 @@ public class Dieta {
 
     public Dieta() {
         this.menus = new ArrayList<>();
-    }
-
-    public static List<Dieta> getAllDietas() {
     }
 
     public List<Rutina> getRutinas() {

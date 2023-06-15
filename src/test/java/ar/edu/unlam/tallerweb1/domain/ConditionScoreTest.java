@@ -72,7 +72,7 @@ public class ConditionScoreTest {
     }
 
     @Test
-    public void conditionScoreGuartaHasta8Semanas() {
+    public void conditionScoreSemana2IncrementaPuntaje() {
 
     }
 

@@ -9,7 +9,7 @@ public class Cardiaco extends Estado {
     public Cardiaco() {
         this.nombre = "Cardiaco";
         this.restricciones = new ArrayList<>(
-                Arrays.asList("carne_procesada", "azucar", "sal", "carbohidratos_refinados", "Pesas")); // fisico_pesas, alimento_sal
+                Arrays.asList("Carne Procesada", "Azucar", "Sal", "Carbohidratos Refinados", "Pesas")); // fisico_pesas, alimento_sal
     }
 
 
