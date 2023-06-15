@@ -51,4 +51,9 @@ public class ServicioConditionScoreImp implements  ServicioConditionScore{
 
         return  puntajeCS > 10 ? 10 : puntajeCS < -10 ? -10 : puntajeCS;
     }
+
+    @Override
+    public void updateWeeklyCS(Persona persona, int newCS) {
+        servicioPersona.updateCS(persona, this.getActual(persona) + newCS);
+    }
 }

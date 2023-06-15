@@ -128,4 +128,8 @@ public class Persona {
 	public void setObjetivo(int objetivo) {
 		this.objetivo = objetivo;
 	}
+
+    public void addNewWeekCS(int newCS) {
+		this.conditionScore.addNewPoint(newCS);
+    }
 }

@@ -73,7 +73,14 @@ public class ConditionScoreTest {
 
     @Test
     public void conditionScoreSemana2IncrementaPuntaje() {
+        final  int VALOR_ESPERADO = 60;
+        Persona persona = repositorioPersona.getPersona("UserName");
+        int csGanado = servicioConditionScore.calculateEffectivity(persona);
 
+        servicioConditionScore.updateWeeklyCS(persona, csGanado);
+        int currentCS = servicioConditionScore.getActual(persona);
+
+        assertThat(currentCS).isEqualTo(VALOR_ESPERADO);
     }
 
     private List<Dieta> makeDieta() {

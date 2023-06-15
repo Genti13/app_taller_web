@@ -34,10 +34,13 @@ public class ControladorReporteDeEstadoTest {
     public void init(){
         session = mock(HttpSession.class);
         request = mock(HttpServletRequest.class);
-        servicioConditionScore = mock(ServicioConditionScore.class);
-        repositorioPersona = mock(RepositorioPersona.class);
-        controladorEstado = new ControladorReporteDeEstado(this.servicioConditionScore, this.servicioLogin, this.repositorioPersona);
+
         servicioLogin = mock(ServicioLogin.class);
+        servicioConditionScore = mock(ServicioConditionScore.class);
+
+        repositorioPersona = mock(RepositorioPersona.class);
+
+        controladorEstado = new ControladorReporteDeEstado(this.servicioConditionScore, this.servicioLogin, this.repositorioPersona);
     }
 
     @Test

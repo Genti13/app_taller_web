@@ -32,4 +32,8 @@ public class ConditionScore {
     public void setHistorico(List<Integer> historico) {
         this.historico = historico;
     }
+
+    public void addNewPoint(int newCS) {
+        this.historico.add(0,newCS);
+    }
 }

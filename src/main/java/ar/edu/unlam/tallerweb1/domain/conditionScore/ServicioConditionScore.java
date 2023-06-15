@@ -7,4 +7,5 @@ public interface ServicioConditionScore {
     public Integer getActual(Persona persona);
     public int calculateEffectivity(Persona persona);
 
+    void updateWeeklyCS(Persona persona, int newCs);
 }

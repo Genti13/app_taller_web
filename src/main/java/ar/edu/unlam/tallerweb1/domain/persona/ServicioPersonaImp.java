@@ -24,4 +24,9 @@ public class ServicioPersonaImp implements ServicioPersona{
 
         return (int) (((10 * peso) + (6.25 * altura) - (5*edad) + s) * (cantRutinas < 7 ? (1.2 + cantRutinas * 0.875) : 1.9));
     }
+
+    @Override
+    public void updateCS(Persona persona, int newCS) {
+        persona.addNewWeekCS(newCS);
+    }
 }
