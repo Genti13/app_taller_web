@@ -33,11 +33,13 @@ public class ConditionScoreTest {
     private RepositorioPersona repositorioPersona;
     private ServicioPersonaImp servicioPersona;
     private ServicioDietaImp servicioDieta;
+    private RepositorioDieta repositorioDieta;
 
     @Before
     public void init() {
+        repositorioDieta = mock(RepositorioDieta.class);
         servicioPersona = new ServicioPersonaImp();
-        servicioDieta = new ServicioDietaImp();
+        servicioDieta = new ServicioDietaImp(this.repositorioDieta);
         servicioConditionScore = new ServicioConditionScoreImp(this.servicioPersona, this.servicioDieta);
         repositorioPersona = mock(RepositorioPersona.class);
         when(repositorioPersona.getPersona(any())).thenReturn(makePersona());

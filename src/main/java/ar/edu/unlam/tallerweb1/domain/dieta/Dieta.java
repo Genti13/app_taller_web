@@ -28,6 +28,9 @@ public class Dieta {
         this.menus = new ArrayList<>();
     }
 
+    public static List<Dieta> getAllDietas() {
+    }
+
     public List<Rutina> getRutinas() {
         return rutinas;
     }

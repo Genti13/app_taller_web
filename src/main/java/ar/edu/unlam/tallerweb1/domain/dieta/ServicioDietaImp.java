@@ -3,6 +3,7 @@ import ar.edu.unlam.tallerweb1.domain.menu.Ingrediente;
 import ar.edu.unlam.tallerweb1.domain.menu.Menu;
 import ar.edu.unlam.tallerweb1.domain.menu.MenuRestringidoException;
 import ar.edu.unlam.tallerweb1.domain.menu.Plato;
+import ar.edu.unlam.tallerweb1.domain.persona.Persona;
 import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import ar.edu.unlam.tallerweb1.domain.ejercicio.Ejercicio;
 import ar.edu.unlam.tallerweb1.domain.rutina.RutinaRestringidaException;
@@ -15,6 +16,11 @@ import java.util.List;
 @Service
 @Transactional
 public class ServicioDietaImp implements ServicioDieta {
+    private RepositorioDieta repositorioDieta;
+
+    public ServicioDietaImp(RepositorioDieta repositorioDieta) {
+        this.repositorioDieta = repositorioDieta;
+    }
 
     @Override
     public void agregarMenu(Dieta dieta, Menu menu, List<String> restricciones) throws MenuRestringidoException {
@@ -49,7 +55,6 @@ public class ServicioDietaImp implements ServicioDieta {
         List<Ejercicio> ejercicios = rutina.getEjercicios();
 
         for (Ejercicio ejercicio : ejercicios) {
-            System.out.print(restricciones);
             if (restricciones.contains(ejercicio.getNombre())) {
                 throw new RutinaRestringidaException("La rutina contiene ejercicios restringidos.");
             }
@@ -84,6 +89,37 @@ public class ServicioDietaImp implements ServicioDieta {
         }
 
         return puntajeMenu;
+    }
+
+    @Override
+    public List<Dieta> dameRecomendadas(Persona persona) {
+        List<Dieta> todasLasDietas = repositorioDieta.getDietasRecomendadas();
+        List<Dieta> recomendadasParaLaPersona = new ArrayList<>();
+
+        //aca empezamos a filtrar:
+
+        //De cada dieta, ver el menu
+        //De cada menu, ver el plato
+        //De cada plato, ver ingredientes
+        //Si no contiente veneno
+
+//        for(Dieta dieta : todasLasDietas){
+//
+//            if(!dieta.getMenus().algunoMataPersona()){
+//                recomendadasParaLaPersona.add(dieta);
+//            }
+//
+//
+//        }
+
+        //Luego =>
+
+        //De la Rutina actual, ver ejercicios
+        //De cada ejercicio ver si no mata a la persona
+        //recomendadasPáLaPErsona.add(rutinaACtual)
+
+
+        return  recomendadasParaLaPersona;
     }
 
 }

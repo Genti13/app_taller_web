@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.domain;
 
 
 import ar.edu.unlam.tallerweb1.domain.dieta.Dieta;
+import ar.edu.unlam.tallerweb1.domain.dieta.RepositorioDieta;
 import ar.edu.unlam.tallerweb1.domain.dieta.ServicioDietaImp;
 import ar.edu.unlam.tallerweb1.domain.ejercicio.Ejercicio;
 import ar.edu.unlam.tallerweb1.domain.ejercicio.EjercicioRepetidoException;
@@ -27,13 +28,15 @@ public class ServicioMenuTest {
         private Estado estadoMock;
         private Ingrediente ingrediente;
         private ServicioDietaImp servicioDieta;
+        private RepositorioDieta repositorioDieta;
 
         @Before
         public void init() {
+            repositorioDieta = mock(RepositorioDieta.class);
             List<Ingrediente> ingredientes = new ArrayList<>();
             plato = new Plato(ingredientes);
             servicioMenu = new ServicioMenuImp();
-            servicioDieta = new ServicioDietaImp();
+            servicioDieta = new ServicioDietaImp(this.repositorioDieta);
 
             estadoMock = mock(Estado.class);
             menu = mock(Menu.class);

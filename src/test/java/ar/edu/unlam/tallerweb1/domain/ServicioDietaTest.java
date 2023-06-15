@@ -29,7 +29,7 @@ public class ServicioDietaTest {
     @Before
     public void init() {
         this.repositorioDieta = mock(RepositorioDieta.class);
-        servicioDieta = new ServicioDietaImp();
+        servicioDieta = new ServicioDietaImp(this.repositorioDieta);
         dieta = new Dieta();
     }
 
@@ -99,12 +99,42 @@ public class ServicioDietaTest {
     public void unaDietaTieneUnPuntaje(){
         final int VALOR_ESPERADO = 30;
         when(repositorioDieta.getAllDietas()).thenReturn(this.makeDieta());
-        List<Dieta> dietas = repositorioDieta.getAllDietas();
+        List<Dieta> dietas = Dieta.getAllDietas();
 
         Dieta dietaACalcular = dietas.get(0);
         int puntajeObtenido = servicioDieta.calcularPuntaje(dietaACalcular);
 
         assertThat(VALOR_ESPERADO).isEqualTo(puntajeObtenido);
+    }
+
+    @Test
+    public void paraUnCardiacoNoMuestreDietasRestringidas(){
+        //Dado que tengo un cardiaco
+        Persona persona = makePersona();
+
+        Dieta dietaQueNoMata = new makeDietaSegura();
+
+        when(repositorioDieta.getDietasRecomendadas()).thenReturn(this.makeDistintasDietas());
+
+        //Supongamos que son 5 recomendadas
+        List<Dieta> dietasRecomendadas = servicioDieta.dameRecomendadas(persona);
+
+        //Supongamos que filtramos 3
+        assertThat(dietasRecomendadas).isNotNull();
+        assertThat(dietasRecomendadas).hasSize(2);
+    }
+
+
+    private List<Dieta> makeDistintasDietas(){
+        List<Dieta> dietas = new ArrayList<>();
+        Dieta dieta = new Dieta();
+        //Aca gen= repositorioerar dietas con distintos ingredientes
+        //Y con distintos ejercicios
+        //Para poder filtrarlos
+
+
+        //Deberia retornar una lista con 5 dietas distintas para poder filtrar
+        return dietas;
     }
 
     private List<Dieta> makeDieta(){
@@ -125,6 +155,21 @@ public class ServicioDietaTest {
 
         return dietas;
     }
+
+    private Menu makeMenu(String ing1, String ing2) {
+        Ingrediente in1 = new Ingrediente(ing1,10);
+        Ingrediente in2 = new Ingrediente(ing2,10);
+
+        List<Ingrediente> ingredientes = new ArrayList<>();
+
+        ingredientes.add(in1);
+        ingredientes.add(in2);
+
+        Plato plato = new Plato(ingredientes);
+
+        return new Menu(plato);
+    }
+
     private Menu makeMenu() {
         Ingrediente in1 = new Ingrediente("Pepino",10);
         Ingrediente ing2 = new Ingrediente("Berenjena",10);

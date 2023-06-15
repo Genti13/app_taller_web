@@ -12,7 +12,7 @@ public class Plato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long Id;
-    @ElementCollection
+    @OneToMany
     private List<Ingrediente> ingredientes;
 
     public Plato(List<Ingrediente> ingredientes) {

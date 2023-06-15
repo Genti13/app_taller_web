@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.domain.dieta;
 
 import ar.edu.unlam.tallerweb1.domain.menu.Menu;
 import ar.edu.unlam.tallerweb1.domain.menu.MenuRestringidoException;
+import ar.edu.unlam.tallerweb1.domain.persona.Persona;
 import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import ar.edu.unlam.tallerweb1.domain.rutina.RutinaRestringidaException;
 
@@ -20,4 +21,6 @@ public interface ServicioDieta {
     void modificarRutina(Dieta dieta, Rutina oldRutina, Rutina newRutina);
 
     int calcularPuntaje(Dieta dieta);
+
+    List<Dieta> dameRecomendadas(Persona persona);
 }

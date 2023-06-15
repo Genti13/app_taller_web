@@ -25,7 +25,7 @@ public class Persona {
 	@Column
 	private String email;
 
-	@Column
+	@OneToOne
 	private ConditionScore conditionScore;
 	@Column
 	private int edad;

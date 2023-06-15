@@ -55,4 +55,9 @@ public class RepositorioDietaImp implements RepositorioDieta {
                 .createAlias("usuario", "u")
                 .add(Restrictions.eq("u.email", mail)).list();
     }
+
+    @Override
+    public List<Dieta> getDietasRecomendadas() {
+        return null;
+    }
 }
