@@ -17,11 +17,11 @@ public class Persona {
 	private Long id;
 	@Column
 	private String nombre;
-	@Column
-	private String apellido;
+	//Estado => Eenfermedades: Celiaco o Sano
 	@OneToOne
 	private Estado estado;
-
+	@Column
+	private String apellido;
 	@Column
 	private String email;
 

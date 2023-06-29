@@ -1,0 +1,40 @@
+[33m823b764[m[33m ([m[1;36mHEAD -> [m[1;32mejemplo[m[33m)[m hhhh
+[33mfcc5f70[m Impl CS & Dieta Rec
+[33me0d6cc8[m Creacion de dietas recomendadas
+[33maaf7ca7[m ejemplo para hacer dieta recomendada
+[33m066f7c1[m probando travis 3
+[33me11ea2f[m probando travis 2
+[33m90b2d52[m probando travis
+[33m1fe3a6e[m Travis Configurado nuevamente
+[33m16c8dc4[m Delete .travis.yml
+[33md6ccf2a[m Terminado ConditionScore
+[33m02e28ed[m Empezado CS, Imp: TMB
+[33mb4d9e12[m Merge branch 'main' of https://github.com/Genti13/app_taller_web
+[33m00a7a5b[m For Merge
+[33me69abcf[m Merge pull request #12 from Genti13/nalonso
+[33mf98c7d6[m Se agregan los tests de servicioMenu
+[33m0e6e85f[m Merge pull request #10 from Genti13/matienter
+[33mcd18f71[m Creacion servicio Menu completo
+[33mab78e25[m nuevos test en delivery y domain
+[33m8c31caa[m Merge pull request #9 from Genti13/matienter
+[33m787f27f[m mapeadas entidades y db
+[33m97976ff[m Integracion Servicios de rutina por TDD
+[33m458c690[m Se agregan servicios de rutina y test
+[33m022df81[m mock controller & fix test dieta
+[33m4fc4c99[m Merge pull request #8 from Genti13/matienter
+[33m0139f2d[m Creacion clase Rutina y Ejercicios con TDD
+[33mbca94e2[m Fix Hibernate & Estado
+[33m32ebe44[m Removed @Entity from Persona - need fix ASAP
+[33m64e9a9c[m Fix Travis: Mail Genti
+[33m96eccec[m Proyecto Limpio Configurado
+[33mfd2e9e0[m Merge pull request #6 from Genti13/genti
+[33ma5a17cb[m Creacion y Test de ServicioDieta
+[33m23b491c[m Agregadas Clases
+[33me8a2fae[m agregado Estado a Persona
+[33m52f976a[m Cracion Class Estado
+[33mc14273c[m Merge pull request #3 from Genti13/genti
+[33m2506162[m Delete asfdsdas.txt
+[33m9a63b96[m Delete asfdsdas.txt
+[33m28c3fcd[m Merge pull request #2 from Genti13/genti
+[33m6ba8cbd[m asd
+[33m086f2a0[m Comienza el desarrollo
