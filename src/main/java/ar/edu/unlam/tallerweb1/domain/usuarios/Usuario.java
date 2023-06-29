@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain.usuarios;
 
+import ar.edu.unlam.tallerweb1.domain.conditionScore.ConditionScore;
 import ar.edu.unlam.tallerweb1.domain.dieta.Dieta;
 import ar.edu.unlam.tallerweb1.domain.estados.Estado;
 
@@ -12,21 +13,27 @@ import java.util.List;
 @Entity
 public class Usuario {
 
-	// La anotacion id indica que este atributo es el utilizado como clave primaria de la entity, se indica que el valor es autogenerado.
+	public Usuario() {
+		this.conditionScore = new ConditionScore();
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	// para el resto de los atributo no se usan anotaciones entonces se usa el default de hibernate: la columna se llama igual que
 	// el atributo, la misma admite nulos, y el tipo de dato se deduce del tipo de dato de java.
+	@Column
+	private String nombre;
+	@Column
+	private String apellido;
 	private String email;
 	private String password;
 	private String rol;
 	private Boolean activo = false;
-
-	@OneToMany
-	private List<Estado> estado;
 	@OneToMany
 	private  List<Dieta> dieta;
+	@OneToOne
+	private ConditionScore conditionScore;
 	
 	public Long getId() {
 		return id;
@@ -58,8 +65,6 @@ public class Usuario {
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
 	}
-	public List<Estado> getEstado() {return estado;}
-	public void setEstado(List<Estado> estado) {this.estado = estado;}
 	public boolean activo() {
 		return activo;
     }
@@ -68,4 +73,22 @@ public class Usuario {
     }
 	public List<Dieta> getDieta() {return dieta;}
 	public void setDieta(List<Dieta> dieta) {this.dieta = dieta;}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getApellido() {
+		return apellido;
+	}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+	public ConditionScore getConditionScore() {
+		return conditionScore;
+	}
+	public void setConditionScore(ConditionScore conditionScore) {
+		this.conditionScore = conditionScore;
+	}
 }

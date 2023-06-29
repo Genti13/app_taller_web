@@ -21,8 +21,6 @@ public class Dieta {
     @OneToMany
     private List<Rutina> rutinas;
 
-    private List<Dieta> dietas;
-  
     @ManyToOne
     private Usuario usuario;
     private int puntaje;
@@ -53,7 +51,7 @@ public class Dieta {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dieta dieta = (Dieta) o;
-        return Objects.equals(id, dieta.id) && Objects.equals(menus, dieta.menus) && Objects.equals(rutinas, dieta.rutinas);
+        return Objects.equals(menus, dieta.menus) && Objects.equals(rutinas, dieta.rutinas);
     }
 
     public Usuario getUsuario() {

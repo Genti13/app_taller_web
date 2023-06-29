@@ -25,8 +25,6 @@ public class RepositorioDietaImpTest extends SpringTest {
     @Test
     @Transactional @Rollback
     public void retornarUnaDietaCuandoSeBuscaLaDietaDelUsuario(){
-        Long ID_USUARIO = 1002L;
-
         Usuario usuario = new Usuario();
         usuario.setEmail("asd@asd");
 
@@ -34,7 +32,6 @@ public class RepositorioDietaImpTest extends SpringTest {
         Dieta dieta = new Dieta();
         dieta.setUsuario(usuario);
         dietas.add(dieta);
-//        dieta.setId(1235L);
 
         usuario.setDieta(dietas);
 
