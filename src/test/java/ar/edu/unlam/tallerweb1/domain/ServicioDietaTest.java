@@ -9,9 +9,9 @@ import ar.edu.unlam.tallerweb1.domain.menu.Ingrediente;
 import ar.edu.unlam.tallerweb1.domain.menu.Menu;
 import ar.edu.unlam.tallerweb1.domain.menu.MenuRestringidoException;
 import ar.edu.unlam.tallerweb1.domain.menu.Plato;
-import ar.edu.unlam.tallerweb1.domain.persona.Persona;
 import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import ar.edu.unlam.tallerweb1.domain.rutina.RutinaRestringidaException;
+import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,7 +41,7 @@ public class ServicioDietaTest {
         Menu menu = new Menu(plato);
 
         Estado enfermedad = new Cardiaco();
-        Persona persona = new Persona();
+        Usuario persona = new Usuario();
 
         persona.setEstado(enfermedad);
 
@@ -55,7 +55,7 @@ public class ServicioDietaTest {
         ArrayList<Ejercicio> ejercicios = new ArrayList<>();
         ejercicios.add(new Ejercicio("Pesas"));
         rutina.setEjercicios(ejercicios);
-        Persona persona = makePersona();
+        Usuario persona = makePersona();
 
         servicioDieta.agregarRutina(dieta, rutina, persona.getEstado().getRestricciones());
     }
@@ -67,7 +67,7 @@ public class ServicioDietaTest {
         Plato plato = new Plato(pepino);
         Menu menu = new Menu(plato);
 
-        Persona persona = new Persona();
+        Usuario persona = new Usuario();
         persona.setEstado(new Cardiaco());
 
         servicioDieta.agregarMenu(dieta, menu, persona.getEstado().getRestricciones());
@@ -111,7 +111,7 @@ public class ServicioDietaTest {
     @Test
     public void paraUnCardiacoNoMuestreDietasRestringidas() {
         // Dado que tengo un cardiaco
-        Persona persona = makePersona();
+        Usuario persona = makePersona();
 
         // Creo las dietas distintas
         List<Dieta> dietas = makeDistintasDietas();
@@ -273,9 +273,9 @@ public class ServicioDietaTest {
         return  new Rutina(ejercicios);
     }
 
-    private Persona makePersona(){
+    private Usuario makePersona(){
         Estado enfermedad = new Cardiaco();
-        Persona persona = new Persona();
+        Usuario persona = new Usuario();
         persona.setEstado(enfermedad);
 
         return persona;

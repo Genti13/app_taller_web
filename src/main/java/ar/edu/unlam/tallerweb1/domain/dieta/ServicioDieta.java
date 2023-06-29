@@ -2,9 +2,9 @@ package ar.edu.unlam.tallerweb1.domain.dieta;
 
 import ar.edu.unlam.tallerweb1.domain.menu.Menu;
 import ar.edu.unlam.tallerweb1.domain.menu.MenuRestringidoException;
-import ar.edu.unlam.tallerweb1.domain.persona.Persona;
 import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import ar.edu.unlam.tallerweb1.domain.rutina.RutinaRestringidaException;
+import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 
 import java.util.List;
 
@@ -22,5 +22,5 @@ public interface ServicioDieta {
 
     int calcularPuntaje(Dieta dieta);
 
-    List<Dieta> dameRecomendadas(Persona persona);
+    List<Dieta> dameRecomendadas(Usuario persona);
 }

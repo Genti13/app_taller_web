@@ -4,10 +4,10 @@ import ar.edu.unlam.tallerweb1.domain.menu.Ingrediente;
 import ar.edu.unlam.tallerweb1.domain.menu.Menu;
 import ar.edu.unlam.tallerweb1.domain.menu.MenuRestringidoException;
 import ar.edu.unlam.tallerweb1.domain.menu.Plato;
-import ar.edu.unlam.tallerweb1.domain.persona.Persona;
 import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import ar.edu.unlam.tallerweb1.domain.ejercicio.Ejercicio;
 import ar.edu.unlam.tallerweb1.domain.rutina.RutinaRestringidaException;
+import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +21,10 @@ public class ServicioDietaImp implements ServicioDieta {
 
     public ServicioDietaImp(RepositorioDieta repositorioDieta) {
         this.repositorioDieta = repositorioDieta;
+    }
+
+    public ServicioDietaImp() {
+
     }
 
     @Override
@@ -92,8 +96,9 @@ public class ServicioDietaImp implements ServicioDieta {
         return puntajeMenu;
     }
 
+
     @Override
-    public List<Dieta> dameRecomendadas(Persona persona) {
+    public List<Dieta> dameRecomendadas(Usuario persona) {
         List<Dieta> todasLasDietas = repositorioDieta.getAllDietas();
         List<Dieta> recomendadasParaLaPersona = new ArrayList<>();
 

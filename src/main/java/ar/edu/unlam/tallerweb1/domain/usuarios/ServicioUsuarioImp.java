@@ -1,24 +1,19 @@
-package ar.edu.unlam.tallerweb1.domain.persona;
-
+package ar.edu.unlam.tallerweb1.domain.usuarios;
 import ar.edu.unlam.tallerweb1.domain.dieta.Dieta;
-
-import java.util.List;
-
-public class ServicioPersonaImp implements ServicioPersona{
-
+public class ServicioUsuarioImp implements ServicioUsuario{
     @Override
-    public int getTMB(Persona persona) {
-        Dieta dieta = persona.getDietas().get(0);
+    public int getTMB(Usuario persona) {
+        Dieta dieta = persona.getDieta().get(0);
         int cantRutinas = dieta.getRutinas().size();
         int edad = persona.getEdad();
         int peso = persona.getPeso();
         int altura = (int) persona.getAltura()*100;
-        char genero = persona.getGenero();
+        String genero = persona.getGenero();
 
         int s;
         switch (genero){
-            case 'M': s = 5; break;
-            case 'F': s = -161; break;
+            case "Male": s = 5; break;
+            case "Female": s = -161; break;
             default: s = -100;break;
         }
 
@@ -26,7 +21,7 @@ public class ServicioPersonaImp implements ServicioPersona{
     }
 
     @Override
-    public void updateCS(Persona persona, int newCS) {
+    public void updateCS(Usuario persona, int newCS) {
         persona.addNewWeekCS(newCS);
     }
 }
