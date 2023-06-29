@@ -1,0 +1,34 @@
+body {
+    background-image: url("../img/fondo-login.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+        height: 100vh;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+input[type="text"], input[type="password"] {
+    color: rgba(51, 44, 38, 1);
+}
+
+a,p {
+color: green;
+
+}
+
+#loginbox {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.form-signin-heading {
+    color: rgba(107, 142, 35, 1);
+}
+
+.colorgraph {
+    border-top: 1px solid rgba(107, 142, 35, 1);
+}
