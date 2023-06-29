@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.domain;
 
 
 import ar.edu.unlam.tallerweb1.domain.dieta.Dieta;
-import ar.edu.unlam.tallerweb1.domain.dieta.RepositorioDieta;
 import ar.edu.unlam.tallerweb1.domain.dieta.ServicioDietaImp;
 import ar.edu.unlam.tallerweb1.domain.ejercicio.Ejercicio;
 import ar.edu.unlam.tallerweb1.domain.ejercicio.EjercicioRepetidoException;
@@ -22,27 +21,24 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class ServicioMenuTest {
-        private ServicioMenuImp servicioMenu;
-        private Menu menu;
-        private Plato plato;
-        private Estado estadoMock;
-        private Ingrediente ingrediente;
-        private ServicioDietaImp servicioDieta;
-        private RepositorioDieta repositorioDieta;
+    private ServicioMenuImp servicioMenu;
+    private Menu menu;
+    private Plato plato;
+    private Estado estadoMock;
+    private Ingrediente ingrediente;
+    private ServicioDietaImp servicioDieta;
 
-        @Before
-        public void init() {
-            repositorioDieta = mock(RepositorioDieta.class);
-            List<Ingrediente> ingredientes = new ArrayList<>();
-            plato = new Plato(ingredientes);
-            servicioMenu = new ServicioMenuImp();
-            servicioDieta = new ServicioDietaImp(this.repositorioDieta);
+    @Before
+    public void init() {
+        List<Ingrediente> ingredientes = new ArrayList<>();
+        plato = new Plato(ingredientes);
+        servicioMenu = new ServicioMenuImp();
+        servicioDieta = new ServicioDietaImp();
 
-            estadoMock = mock(Estado.class);
-            menu = mock(Menu.class);
-            when(estadoMock.getRestricciones()).thenReturn(new ArrayList<>());
-
-        }
+        estadoMock = mock(Estado.class);
+        menu = mock(Menu.class);
+        when(estadoMock.getRestricciones()).thenReturn(new ArrayList<>());
+    }
 
     @Test
     public void queSePuedaAgregarUnPlatoPermitido() throws MenuRestringidoException, PlatoExistenteException {
@@ -124,36 +120,36 @@ public class ServicioMenuTest {
 
     }
 
-        @Test(expected = PlatoNoExistenteException.class)
-        public void queSiSeIntentaModificarUnMenuQueNoExisteLanceUnaExcepcion() throws PlatoNoExistenteException {
-            Ingrediente ingrediente0 = new Ingrediente("sal", 5);
-            Ingrediente ingrediente1 = new Ingrediente("lentejas", 20);
-            Ingrediente ingrediente2 = new Ingrediente("caldo", 30);
-            Ingrediente ingrediente3 = new Ingrediente("papas", 10);
-            Ingrediente ingrediente4 = new Ingrediente("chorizo colorado", 15);
-            Ingrediente ingrediente5 = new Ingrediente("panceta", 25);
-            Ingrediente ingrediente6 = new Ingrediente("verduras", 5);
+    @Test(expected = PlatoNoExistenteException.class)
+    public void queSiSeIntentaModificarUnMenuQueNoExisteLanceUnaExcepcion() throws PlatoNoExistenteException {
+        Ingrediente ingrediente0 = new Ingrediente("sal", 5);
+        Ingrediente ingrediente1 = new Ingrediente("lentejas", 20);
+        Ingrediente ingrediente2 = new Ingrediente("caldo", 30);
+        Ingrediente ingrediente3 = new Ingrediente("papas", 10);
+        Ingrediente ingrediente4 = new Ingrediente("chorizo colorado", 15);
+        Ingrediente ingrediente5 = new Ingrediente("panceta", 25);
+        Ingrediente ingrediente6 = new Ingrediente("verduras", 5);
 
 
-            List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
-            ingredientes.add(ingrediente0);
-            ingredientes.add(ingrediente1);
-            ingredientes.add(ingrediente2);
-            ingredientes.add(ingrediente3);
-            ingredientes.add(ingrediente4);
-            ingredientes.add(ingrediente5);
-            ingredientes.add(ingrediente6);
+        List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+        ingredientes.add(ingrediente0);
+        ingredientes.add(ingrediente1);
+        ingredientes.add(ingrediente2);
+        ingredientes.add(ingrediente3);
+        ingredientes.add(ingrediente4);
+        ingredientes.add(ingrediente5);
+        ingredientes.add(ingrediente6);
 
-            Plato plato1 = new Plato(ingredientes);
-            Plato plato2 = new Plato();
-            List<Plato> platos = new ArrayList<>();
-            platos.add(plato1);
-            menu = new Menu(platos);
-            List<Menu> menus = new ArrayList<>();
-            menus.add(menu);
-            Dieta dieta = new Dieta();
-            dieta.setMenus(menus);
-            servicioMenu.modificarPlato(plato2, menu);
+        Plato plato1 = new Plato(ingredientes);
+        Plato plato2 = new Plato();
+        List<Plato> platos = new ArrayList<>();
+        platos.add(plato1);
+        menu = new Menu(platos);
+        List<Menu> menus = new ArrayList<>();
+        menus.add(menu);
+        Dieta dieta = new Dieta();
+        dieta.setMenus(menus);
+        servicioMenu.modificarPlato(plato2, menu);
 
     }
     @Test
