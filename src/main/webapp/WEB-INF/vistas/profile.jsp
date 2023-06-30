@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="css/profile.css">
     <title>Profile</title>
 </head>
 
@@ -45,94 +45,108 @@
     </div>
 </body>
 
-<script src="/echarts.min.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript">
 
-    let historic_cs = [50, 45, 49, 54, 64, 60, 65];
+    let historic_cs;
     let historic_weeks = [];
+    $.ajax({
+        url: "/proyecto-limpio-spring/pedir_CS",
+        type: "GET",
+        success: function (data) {
 
-    historic_cs.forEach((week, n_week) => {
-        historic_weeks.push('Week ' + n_week);
-    })
+            historic_cs = data;
+            
+            historic_cs.forEach((week, n_week) => {
+                historic_weeks.push('Week ' + n_week);
+            })
 
-    console.log(historic_weeks);
+            generateGraph(historic_cs, historic_weeks);
+        },
+        error: function () {
+            console.log("FALLO");
+        }
+    });
 
-    // Initialize the echarts instance based on the prepared dom
-    var myChart = echarts.init(document.getElementById('chart_conditionScore'));
-
-    // Specify the configuration items and data for the chart
-    var option = {
-        title: {
-            top: 4,
-            left: 'center',
-            text: 'Historic Condition Score'
-        },
-        tooltip: {
-            trigger: 'axis'
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        toolbox: {
-            top: 0,
-            feature: {
-                saveAsImage: {}
-            }
-        },
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: historic_weeks
-        },
-        yAxis: {
-            min: 0,
-            max: 100,
-            type: 'value'
-        },
-        visualMap: {
-            top: 30,
-            left: 'center',
-            orient: 'horizontal',
-            pieces: [{
-                gt: 0,
-                lte: 25,
-                color: '#FD0100',
+    function generateGraph(historic_cs, historic_weeks) {
+        var myChart = echarts.init(document.getElementById('chart_conditionScore'));
+        var option = {
+            title: {
+                top: 4,
+                left: 'center',
+                text: 'Historic Condition Score'
             },
-            {
-                gt: 25,
-                lte: 50,
-                color: '#FC7D02',
+            tooltip: {
+                trigger: 'axis'
             },
-            {
-                gt: 50,
-                lte: 75,
-                color: '#FBDB0F',
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
             },
-            {
-                gt: 75,
-                lte: 100,
-                color: '#93CE07',
-            }
-            ],
-            outOfRange: {
-                color: '#999'
-            }
-        },
-        series: [
-            {
-                name: 'Condition Score',
-                type: 'line',
-                stack: 'Total',
-                data: historic_cs
-            }
-        ]
-    };
+            toolbox: {
+                top: 0,
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: historic_weeks
+            },
+            yAxis: {
+                min: 0,
+                max: 100,
+                type: 'value'
+            },
+            visualMap: {
+                top: 30,
+                left: 'center',
+                orient: 'horizontal',
+                pieces: [{
+                    gt: 0,
+                    lte: 25,
+                    color: '#FD0100',
+                },
+                {
+                    gt: 25,
+                    lte: 50,
+                    color: '#FC7D02',
+                },
+                {
+                    gt: 50,
+                    lte: 75,
+                    color: '#FBDB0F',
+                },
+                {
+                    gt: 75,
+                    lte: 100,
+                    color: '#93CE07',
+                }
+                ],
+                outOfRange: {
+                    color: '#999'
+                }
+            },
+            series: [
+                {
+                    name: 'Condition Score',
+                    type: 'line',
+                    stack: 'Total',
+                    data: historic_cs
+                }
+            ]
+        };
 
-    // Display the chart using the configuration items and data just specified.
-    myChart.setOption(option);
+        myChart.setOption(option);
+    }
+
+
 </script>
+
+
 
 </html>
