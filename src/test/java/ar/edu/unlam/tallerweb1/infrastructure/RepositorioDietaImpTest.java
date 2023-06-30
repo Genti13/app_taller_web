@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
+import ar.edu.unlam.tallerweb1.domain.conditionScore.ConditionScore;
 import ar.edu.unlam.tallerweb1.domain.dieta.Dieta;
 import ar.edu.unlam.tallerweb1.domain.usuarios.RepositorioUsuario;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
@@ -25,8 +26,6 @@ public class RepositorioDietaImpTest extends SpringTest {
     @Test
     @Transactional @Rollback
     public void retornarUnaDietaCuandoSeBuscaLaDietaDelUsuario(){
-        Long ID_USUARIO = 1002L;
-
         Usuario usuario = new Usuario();
         usuario.setEmail("asd@asd");
 
@@ -34,10 +33,14 @@ public class RepositorioDietaImpTest extends SpringTest {
         Dieta dieta = new Dieta();
         dieta.setUsuario(usuario);
         dietas.add(dieta);
-//        dieta.setId(1235L);
 
+
+        ConditionScore conditionScore = new ConditionScore();
+
+        usuario.setConditionScore(conditionScore);
         usuario.setDieta(dietas);
 
+        session().save(conditionScore);
         session().save(usuario);
 
         List<Dieta> dietasBuscadas = repositorioDietaImp.buscarDietaConMail("asd@asd");

@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.domain.menu.Menu;
 import ar.edu.unlam.tallerweb1.domain.menu.MenuRestringidoException;
 import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import ar.edu.unlam.tallerweb1.domain.rutina.RutinaRestringidaException;
+import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface ServicioDieta {
     void modificarRutina(Dieta dieta, Rutina oldRutina, Rutina newRutina);
 
     int calcularPuntaje(Dieta dieta);
+
+    List<Dieta> dameRecomendadas(Usuario persona);
 }

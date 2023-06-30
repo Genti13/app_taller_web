@@ -1,10 +1,7 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
-import ar.edu.unlam.tallerweb1.domain.conditionScore.ConditionScore;
 import ar.edu.unlam.tallerweb1.domain.conditionScore.ServicioConditionScore;
-import ar.edu.unlam.tallerweb1.domain.conditionScore.ServicioConditionScoreImp;
-import ar.edu.unlam.tallerweb1.domain.persona.Persona;
-import ar.edu.unlam.tallerweb1.domain.persona.RepositorioPersona;
+import ar.edu.unlam.tallerweb1.domain.usuarios.RepositorioUsuario;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.junit.Before;
@@ -13,9 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -29,15 +23,18 @@ public class ControladorReporteDeEstadoTest {
     private ControladorReporteDeEstado controladorEstado;
     private ServicioConditionScore servicioConditionScore;
     private ServicioLogin servicioLogin;
-    private RepositorioPersona repositorioPersona;
+    private RepositorioUsuario repositorioPersona;
     @Before
     public void init(){
         session = mock(HttpSession.class);
         request = mock(HttpServletRequest.class);
-        servicioConditionScore = mock(ServicioConditionScore.class);
-        repositorioPersona = mock(RepositorioPersona.class);
-        controladorEstado = new ControladorReporteDeEstado(this.servicioConditionScore, this.servicioLogin, this.repositorioPersona);
+
         servicioLogin = mock(ServicioLogin.class);
+        servicioConditionScore = mock(ServicioConditionScore.class);
+
+        repositorioPersona = mock(RepositorioUsuario.class);
+
+        controladorEstado = new ControladorReporteDeEstado(this.servicioConditionScore, this.servicioLogin, this.repositorioPersona);
     }
 
     @Test

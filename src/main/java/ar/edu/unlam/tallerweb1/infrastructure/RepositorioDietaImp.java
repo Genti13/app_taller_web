@@ -20,9 +20,11 @@ public class RepositorioDietaImp implements RepositorioDieta {
     private SessionFactory sessionFactory;
 
     @Autowired
-    public RepositorioDietaImp(SessionFactory sessionFactory) {this.sessionFactory = sessionFactory;}
+    public RepositorioDietaImp(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
-    public List<Rutina> get(){
+    public List<Rutina> get() {
         return new ArrayList<Rutina>();
     }
 
@@ -40,10 +42,7 @@ public class RepositorioDietaImp implements RepositorioDieta {
     public List<Dieta> buscarDietaConIDUsuario(Long idUser) {
 
         Session session = sessionFactory.getCurrentSession();
-
-        return session.createCriteria(Dieta.class)
-                .createAlias("usuario", "u")
-                .add(Restrictions.eq("u.id", idUser)).list();
+        return session.createCriteria(Dieta.class).createAlias("usuario", "u").add(Restrictions.eq("u.id", idUser)).list();
 
     }
 
@@ -51,8 +50,21 @@ public class RepositorioDietaImp implements RepositorioDieta {
     public List<Dieta> buscarDietaConMail(String mail) {
         Session session = sessionFactory.getCurrentSession();
 
-        return session.createCriteria(Dieta.class)
-                .createAlias("usuario", "u")
-                .add(Restrictions.eq("u.email", mail)).list();
+        Usuario usuario = (Usuario) session.createCriteria(Usuario.class).add(Restrictions.eq("email", mail)).uniqueResult();
+
+        List<Dieta> dietas = new ArrayList<>(usuario.getDieta());
+
+        return dietas;
+    }
+
+    @Override
+    public List<Dieta> getDietasRecomendadas() {
+        return null;
+    }
+
+    @Override
+    public Usuario getUsuario(String mail) {
+        Session session = sessionFactory.getCurrentSession();
+        return (Usuario) session.createCriteria(Usuario.class).add(Restrictions.eq("email", mail)).uniqueResult();
     }
 }

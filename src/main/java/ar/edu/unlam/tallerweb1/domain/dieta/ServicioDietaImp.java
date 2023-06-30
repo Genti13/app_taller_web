@@ -1,4 +1,5 @@
 package ar.edu.unlam.tallerweb1.domain.dieta;
+
 import ar.edu.unlam.tallerweb1.domain.menu.Ingrediente;
 import ar.edu.unlam.tallerweb1.domain.menu.Menu;
 import ar.edu.unlam.tallerweb1.domain.menu.MenuRestringidoException;
@@ -6,6 +7,7 @@ import ar.edu.unlam.tallerweb1.domain.menu.Plato;
 import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import ar.edu.unlam.tallerweb1.domain.ejercicio.Ejercicio;
 import ar.edu.unlam.tallerweb1.domain.rutina.RutinaRestringidaException;
+import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,15 @@ import java.util.List;
 @Service
 @Transactional
 public class ServicioDietaImp implements ServicioDieta {
+    private RepositorioDieta repositorioDieta;
+
+    public ServicioDietaImp(RepositorioDieta repositorioDieta) {
+        this.repositorioDieta = repositorioDieta;
+    }
+
+    public ServicioDietaImp() {
+
+    }
 
     @Override
     public void agregarMenu(Dieta dieta, Menu menu, List<String> restricciones) throws MenuRestringidoException {
@@ -49,7 +60,6 @@ public class ServicioDietaImp implements ServicioDieta {
         List<Ejercicio> ejercicios = rutina.getEjercicios();
 
         for (Ejercicio ejercicio : ejercicios) {
-            System.out.print(restricciones);
             if (restricciones.contains(ejercicio.getNombre())) {
                 throw new RutinaRestringidaException("La rutina contiene ejercicios restringidos.");
             }
@@ -79,11 +89,45 @@ public class ServicioDietaImp implements ServicioDieta {
 
         int puntajeMenu = 0;
 
-        for(Menu menu : menus){
+        for (Menu menu : menus) {
             puntajeMenu += menu.calcularValor();
         }
 
         return puntajeMenu;
     }
 
+
+    @Override
+    public List<Dieta> dameRecomendadas(Usuario persona) {
+        List<Dieta> todasLasDietas = repositorioDieta.getAllDietas();
+        List<Dieta> recomendadasParaLaPersona = new ArrayList<>();
+
+        for (Dieta dieta : todasLasDietas) {
+            boolean esDietaPermitida = true;
+
+            // Filtrar por ingredientes restringidos en el menú
+            for (Menu menu : dieta.getMenus()) {
+                for (Plato plato : menu.getPlatos()) {
+                    for (Ingrediente ingrediente : plato.getIngredientes()) {
+                        if (persona.getEstado().getRestricciones().contains(ingrediente.getNombre())) {
+                            esDietaPermitida = false;
+                        }
+                    }
+                }
+            }
+            // Filtrar por ejercicios restringidos en las rutinas
+            for (Rutina rutina : dieta.getRutinas()) {
+                for (Ejercicio ejercicio : rutina.getEjercicios()) {
+                    if (persona.getEstado().getRestricciones().contains(ejercicio.getNombre())) {
+                        esDietaPermitida = false;
+                    }
+                }
+            }
+            // Si la dieta es permitida, agregarla a las recomendadas para la persona
+            if (esDietaPermitida) {
+                recomendadasParaLaPersona.add(dieta);
+            }
+        }
+        return recomendadasParaLaPersona;
+    }
 }

@@ -1,8 +1,8 @@
 package ar.edu.unlam.tallerweb1.domain.conditionScore;
 
 import ar.edu.unlam.tallerweb1.domain.dieta.ServicioDietaImp;
-import ar.edu.unlam.tallerweb1.domain.persona.Persona;
-import ar.edu.unlam.tallerweb1.domain.persona.ServicioPersonaImp;
+import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioUsuario;
+import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 
 public class ServicioConditionScoreImp implements  ServicioConditionScore{
     private static final int VALOR_MIN_PERDIDA = 500;
@@ -11,21 +11,21 @@ public class ServicioConditionScoreImp implements  ServicioConditionScore{
     private static final int VALOR_MAX_GANANCIA = 500;
     private static  final  int VALOR_MANTENER_PESO = 100;
 
-    private ServicioPersonaImp servicioPersona;
+    private ServicioUsuario servicioUsuario;
     private ServicioDietaImp servicioDieta;
 
-    public ServicioConditionScoreImp(ServicioPersonaImp servicioPersona, ServicioDietaImp servicioDieta) {
+    public ServicioConditionScoreImp(ServicioUsuario servicioPersona, ServicioDietaImp servicioDieta) {
         this.servicioDieta = servicioDieta;
-        this.servicioPersona = servicioPersona;
+        this.servicioUsuario = servicioPersona;
     }
-    public Integer getActual(Persona persona) {
+    public Integer getActual(Usuario persona) {
         return persona.getConditionScore().getLastCS();
     }
 
 
 
-    public int calculateEffectivity(Persona persona) {
-        int tmb = servicioPersona.getTMB(persona); //necesita 1500
+    public int calculateEffectivity(Usuario persona) {
+        int tmb = servicioUsuario.getTMB(persona); //necesita 1500
         int caloriasDieta = servicioDieta.calcularPuntaje(persona.getDieta().get(0));  //dieta es perder peso
         int objetivo = persona.getObjetivo(); //1
         int valMin = tmb;
@@ -50,5 +50,10 @@ public class ServicioConditionScoreImp implements  ServicioConditionScore{
         }
 
         return  puntajeCS > 10 ? 10 : puntajeCS < -10 ? -10 : puntajeCS;
+    }
+
+    @Override
+    public void updateWeeklyCS(Usuario persona, int newCS) {
+        servicioUsuario.updateCS(persona, this.getActual(persona) + newCS);
     }
 }

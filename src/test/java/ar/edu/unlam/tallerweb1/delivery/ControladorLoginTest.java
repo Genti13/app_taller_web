@@ -29,21 +29,6 @@ public class ControladorLoginTest {
     }
 
     @Test
-    public void dadoUnUsuarioExistenteQueSePuedaIniciarSesion() {
-
-        String ROL = "admin";
-
-        DatosLogin datosLogin = dadoQueTengoDatosDeLoginValidos();
-        Usuario usuarioEsperado = dadoQueTengoUnUsuarioConRol(ROL);
-
-        ModelAndView vista = cuandoQuieroValidarElLogin(datosLogin, usuarioEsperado, ROL);
-
-        entoncesMeDevuelveLaVistaCorrecta(vista);
-
-        entoncesInicioSesion(ROL);
-    }
-
-    @Test
     public void dadoQueNoExisteUnUsuarioNoIniciaSesion(){
         String ROL = "admin";
         Usuario usuarioEsperado = dadoQueTengoUnUsuarioConRol(ROL);

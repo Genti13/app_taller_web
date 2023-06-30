@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.dieta;
 
+import ar.edu.unlam.tallerweb1.domain.menu.Ingrediente;
+import ar.edu.unlam.tallerweb1.domain.ejercicio.Ejercicio;
 import ar.edu.unlam.tallerweb1.domain.menu.Menu;
 import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
@@ -49,7 +51,7 @@ public class Dieta {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dieta dieta = (Dieta) o;
-        return Objects.equals(id, dieta.id) && Objects.equals(menus, dieta.menus) && Objects.equals(rutinas, dieta.rutinas);
+        return Objects.equals(menus, dieta.menus) && Objects.equals(rutinas, dieta.rutinas);
     }
 
     public Usuario getUsuario() {

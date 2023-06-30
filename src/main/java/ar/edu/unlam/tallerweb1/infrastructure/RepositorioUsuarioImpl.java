@@ -24,6 +24,11 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 	}
 
 	@Override
+	public Usuario getUsuario(String userName) {
+		return null;
+	}
+
+	@Override
 	public Usuario buscarUsuario(String email, String password) {
 
 		// Se obtiene la sesion asociada a la transaccion iniciada en el servicio que invoca a este metodo y se crea un criterio

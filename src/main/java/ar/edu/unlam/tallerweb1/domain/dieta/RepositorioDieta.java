@@ -13,4 +13,8 @@ public interface RepositorioDieta {
     List<Dieta> buscarDietaConIDUsuario(Long idUsuario);
 
     List<Dieta> buscarDietaConMail(String s);
+
+    List<Dieta> getDietasRecomendadas();
+
+    Usuario getUsuario(String s);
 }

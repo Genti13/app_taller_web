@@ -9,9 +9,9 @@ import ar.edu.unlam.tallerweb1.domain.menu.Ingrediente;
 import ar.edu.unlam.tallerweb1.domain.menu.Menu;
 import ar.edu.unlam.tallerweb1.domain.menu.MenuRestringidoException;
 import ar.edu.unlam.tallerweb1.domain.menu.Plato;
-import ar.edu.unlam.tallerweb1.domain.persona.Persona;
 import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import ar.edu.unlam.tallerweb1.domain.rutina.RutinaRestringidaException;
+import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class ServicioDietaTest {
@@ -29,18 +30,18 @@ public class ServicioDietaTest {
     @Before
     public void init() {
         this.repositorioDieta = mock(RepositorioDieta.class);
-        servicioDieta = new ServicioDietaImp();
+        servicioDieta = new ServicioDietaImp(this.repositorioDieta);
         dieta = new Dieta();
     }
 
     @Test(expected = MenuRestringidoException.class)
     public void unaPersonaConProblemasCardiacosNoPuedeAgregarUnMenuConSal() throws MenuRestringidoException {
-        Ingrediente sal = new Ingrediente("sal", 10);
+        Ingrediente sal = new Ingrediente("Sal", 10);
         Plato plato = new Plato(sal);
         Menu menu = new Menu(plato);
 
         Estado enfermedad = new Cardiaco();
-        Persona persona = new Persona();
+        Usuario persona = new Usuario();
 
         persona.setEstado(enfermedad);
 
@@ -54,7 +55,7 @@ public class ServicioDietaTest {
         ArrayList<Ejercicio> ejercicios = new ArrayList<>();
         ejercicios.add(new Ejercicio("Pesas"));
         rutina.setEjercicios(ejercicios);
-        Persona persona = makePersona();
+        Usuario persona = makePersona();
 
         servicioDieta.agregarRutina(dieta, rutina, persona.getEstado().getRestricciones());
     }
@@ -66,7 +67,7 @@ public class ServicioDietaTest {
         Plato plato = new Plato(pepino);
         Menu menu = new Menu(plato);
 
-        Persona persona = new Persona();
+        Usuario persona = new Usuario();
         persona.setEstado(new Cardiaco());
 
         servicioDieta.agregarMenu(dieta, menu, persona.getEstado().getRestricciones());
@@ -97,7 +98,7 @@ public class ServicioDietaTest {
 
     @Test
     public void unaDietaTieneUnPuntaje(){
-        final int VALOR_ESPERADO = 30;
+        final int VALOR_ESPERADO = 20;
         when(repositorioDieta.getAllDietas()).thenReturn(this.makeDieta());
         List<Dieta> dietas = repositorioDieta.getAllDietas();
 
@@ -105,6 +106,26 @@ public class ServicioDietaTest {
         int puntajeObtenido = servicioDieta.calcularPuntaje(dietaACalcular);
 
         assertThat(VALOR_ESPERADO).isEqualTo(puntajeObtenido);
+    }
+
+    @Test
+    public void paraUnCardiacoNoMuestreDietasRestringidas() {
+        // Dado que tengo un cardiaco
+        Usuario persona = makePersona();
+
+        // Creo las dietas distintas
+        List<Dieta> dietas = makeDistintasDietas();
+
+        // Configuro el comportamiento del repositorio para devolver las dietas
+        when(repositorioDieta.getAllDietas()).thenReturn(dietas);
+
+        // Llamo al método que quiero probar
+        List<Dieta> dietasRecomendadas = servicioDieta.dameRecomendadas(persona);
+
+        // Verifico que no se haya incluido una dietaNoCardiaco en las dietas recomendadas
+        assertThat(dietasRecomendadas).isNotNull();
+        assertThat(dietasRecomendadas).hasSize(2);
+
     }
 
     private List<Dieta> makeDieta(){
@@ -125,6 +146,104 @@ public class ServicioDietaTest {
 
         return dietas;
     }
+    private List<Dieta> makeDistintasDietas() {
+        List<Dieta> dietas = new ArrayList<>();
+
+        // Dietas que no puede utilizar un cardiaco
+        Dieta dietaNoCardiaco = makeDietaNoCardiaco();
+
+        for (int i = 0; i < 3; i++) {
+            dietas.add(dietaNoCardiaco);
+        }
+
+        // Dietas que puede utilizar un cardiaco
+        Dieta dietaCardiaco = makeDietaCardiaco();
+
+        for (int i = 0; i < 2; i++) {
+            dietas.add(dietaCardiaco);
+        }
+
+        return dietas;
+    }
+
+    private Dieta makeDietaNoCardiaco() {
+        Dieta dieta = new Dieta();
+
+        ArrayList<Rutina> rutinas = new ArrayList<>();
+        rutinas.add(makeEjercicioNoCardiaco());
+
+        List<Menu> menus = new ArrayList<>();
+        menus.add(makeMenuNoCardiaco());
+
+        dieta.setMenus(menus);
+        dieta.setRutinas(rutinas);
+
+        return dieta;
+    }
+
+    private Dieta makeDietaCardiaco() {
+        Dieta dieta = new Dieta();
+
+        ArrayList<Rutina> rutinas = new ArrayList<>();
+        rutinas.add(makeEjercicioCardiaco());
+
+        List<Menu> menus = new ArrayList<>();
+        menus.add(makeMenuCardiaco());
+
+        dieta.setMenus(menus);
+        dieta.setRutinas(rutinas);
+
+        return dieta;
+    }
+
+    private Menu makeMenuNoCardiaco() {
+        Ingrediente in1 = new Ingrediente("Pepino", 10);
+        Ingrediente ing2 = new Ingrediente("Berenjena", 10);
+        Ingrediente ing3 = new Ingrediente("Carne Procesada", 10);
+
+        List<Ingrediente> ingredientes = new ArrayList<>();
+        ingredientes.add(in1);
+        ingredientes.add(ing2);
+        ingredientes.add(ing3);
+
+        Plato plato = new Plato(ingredientes);
+
+        return new Menu(plato);
+    }
+
+    private Rutina makeEjercicioNoCardiaco(){
+        Ejercicio ej1 = new Ejercicio("Pesas");
+
+        List<Ejercicio> ejercicios = new ArrayList<>();
+        ejercicios.add(ej1);
+
+        return new Rutina(ejercicios);
+    }
+
+    private Rutina makeEjercicioCardiaco(){
+        Ejercicio ej1 = new Ejercicio("Caminar muy lento");
+
+        List<Ejercicio> ejercicios = new ArrayList<>();
+        ejercicios.add(ej1);
+
+        return new Rutina(ejercicios);
+    }
+
+    private Menu makeMenuCardiaco() {
+        Ingrediente in1 = new Ingrediente("Pepino", 10);
+        Ingrediente ing2 = new Ingrediente("Berenjena", 10);
+        Ingrediente ing3 = new Ingrediente("Pollo", 10);
+
+        List<Ingrediente> ingredientes = new ArrayList<>();
+        ingredientes.add(in1);
+        ingredientes.add(ing2);
+        ingredientes.add(ing3);
+
+        Plato plato = new Plato(ingredientes);
+
+        return new Menu(plato);
+    }
+
     private Menu makeMenu() {
         Ingrediente in1 = new Ingrediente("Pepino",10);
         Ingrediente ing2 = new Ingrediente("Berenjena",10);
@@ -154,9 +273,9 @@ public class ServicioDietaTest {
         return  new Rutina(ejercicios);
     }
 
-    private Persona makePersona(){
+    private Usuario makePersona(){
         Estado enfermedad = new Cardiaco();
-        Persona persona = new Persona();
+        Usuario persona = new Usuario();
         persona.setEstado(enfermedad);
 
         return persona;

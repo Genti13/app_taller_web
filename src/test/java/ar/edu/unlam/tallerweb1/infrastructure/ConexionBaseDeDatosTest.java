@@ -36,7 +36,6 @@ public class ConexionBaseDeDatosTest extends SpringTest{
 
         List<Estado> estados = new ArrayList<>();
         estados.add(new Cardiaco());
-        usuario.setEstado(estados);
 
         List<Dieta> dieta = new ArrayList<>();
         dieta.add(new Dieta());
