@@ -21,7 +21,7 @@ public class Usuario {
     /**Data for Login**/
     @Column private String email;
     @Column private String password;
-    @Column private String rol;
+    @Column private String rol = "User";
     @Column private Boolean activo = false;
 
 
