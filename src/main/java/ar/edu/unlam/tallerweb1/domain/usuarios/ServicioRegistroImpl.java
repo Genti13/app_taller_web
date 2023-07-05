@@ -43,6 +43,8 @@ public class ServicioRegistroImpl implements ServicioRegistro {
         usuarioNuevo.setPassword(datosRegistro.getPassword());
         usuarioNuevo.setNombre(datosRegistro.getNombre());
         //usuarioNuevo.setEstado(estadoUsuarioNuevo);
+        usuarioNuevo.setRol("admin");
+        usuarioNuevo.setActivo(true);
         usuarioNuevo.setEdad(datosRegistro.getEdad());
         usuarioNuevo.setAltura(datosRegistro.getAltura());
         usuarioNuevo.setPeso(datosRegistro.getPeso());

@@ -81,7 +81,7 @@ public class ControladorLoginTest {
 
     //Entonces
     private static void entoncesMeDevuelveLaVistaCorrecta(ModelAndView vista) {
-        assertThat(vista.getViewName()).isEqualTo("redirect:/home");
+        assertThat(vista.getViewName()).isEqualTo("redirect:/profile");
     }
     private void entoncesInicioSesion(String rol) {
         assertThat(sesion.getAttribute("ROL")).isEqualTo(rol);
