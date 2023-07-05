@@ -55,6 +55,7 @@
         url: "/proyecto-limpio-spring/pedir_CS",
         type: "GET",
         success: function (data) {
+        console.log(data)
 
             historic_cs = data;
             
