@@ -13,13 +13,13 @@ public abstract class Estado {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
     @Column
-    private String nombre;
+    protected String nombre;
 
     @Column @ElementCollection
-    private List<String> restricciones;
+    protected List<String> restricciones;
 
 
 

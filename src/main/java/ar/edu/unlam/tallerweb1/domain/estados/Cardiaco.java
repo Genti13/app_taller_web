@@ -8,8 +8,9 @@ import java.util.List;
 public class Cardiaco extends Estado {
 
     public Cardiaco() {
-        this.setNombre("Cardiaco");
-        this.setRestricciones(new ArrayList<>(Arrays.asList("Carne Procesada", "Azucar", "Sal", "Carbohidratos Refinados", "Pesas")));// fisico_pesas, alimento_sal
+        this.nombre = "Cardiaco";
+        this.restricciones = new ArrayList<>(
+                Arrays.asList("Carne Procesada", "Azucar", "Sal", "Carbohidratos Refinados", "Pesas"));// fisico_pesas, alimento_sal
     }
 
 
