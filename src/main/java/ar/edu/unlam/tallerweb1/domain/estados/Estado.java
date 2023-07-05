@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public abstract class Estado {
@@ -12,13 +13,13 @@ public abstract class Estado {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    protected Long id;
+    private Long id;
 
     @Column
-    protected String nombre;
+    private String nombre;
 
     @Column @ElementCollection
-    protected List<String> restricciones;
+    private List<String> restricciones;
 
 
 
@@ -44,6 +45,19 @@ public abstract class Estado {
 
     public void setRestricciones(ArrayList<String> restricciones) {
         this.restricciones = restricciones;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Estado estado = (Estado) o;
+        return Objects.equals(nombre, estado.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre);
     }
 }
 

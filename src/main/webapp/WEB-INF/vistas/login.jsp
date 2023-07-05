@@ -18,7 +18,7 @@
         <div class="col-md-5">
             <!-- Columna de la izquierda con el formulario de inicio de sesión -->
                        <div id="loginbox" class="mainbox">
-                           <form:form action="profile" method="POST" modelAttribute="datosLogin">
+                           <form:form action="validar-login" method="POST" modelAttribute="datosLogin">
                                <h3 class="form-signin-heading">Bienvenido a LifeBetter</h3>
                                <hr class="colorgraph">
 
@@ -31,14 +31,13 @@
                            </form:form>
                            <br/>
 
-                             <a href="registro-usuario">Registrarse</a>
+                             <div><a href="registro-usuario">Registrarse</a></div>
 
 
                            <c:if test="${not empty error}">
-                               <h4><span>${error}</span></h4>
-                               <br>
+                               <br/>
+                               <div class="alert alert-danger" role="alert">${error}</div>
                            </c:if>
-                           ${msg}
                        </div>
         </div>
         <div class="col-md-6">

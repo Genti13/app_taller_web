@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ControladorRegistro {
 
+    @Inject
     private ServicioRegistro servicioRegistro;
 
     @Autowired
@@ -25,26 +27,26 @@ public class ControladorRegistro {
     @RequestMapping(path = "/registro-usuario")
     public ModelAndView irARegistro() {
         ModelMap model = new ModelMap();
-        model.put("datosRegistro",new DatosRegistro());
+        model.put("datosRegistro", new DatosRegistro());
         return new ModelAndView("registro-usuario", model);
     }
 
-    @RequestMapping(path = "/registro-usuario", method = RequestMethod.POST)
-    public ModelAndView registrarUsuario(@ModelAttribute("datosRegistro") Usuario usuario, HttpServletRequest request) {
+    @RequestMapping(path = "/registrar-usuario", method = RequestMethod.POST)
+    public ModelAndView registrarUsuario(@ModelAttribute("datosRegistro") DatosRegistro datosRegistro) {
         ModelMap model = new ModelMap();
 
-        // Aquí realizas las validaciones y lógica de registro
+        try {
+            servicioRegistro.registrarUsuario(datosRegistro);
 
-        // Ejemplo de registro exitoso
-        servicioRegistro.registrarUsuario(usuario);
-        model.put("mensaje", "Registro exitoso");
-
-        return new ModelAndView("login", model);
+        }catch (IllegalArgumentException e){
+            model.put("error", e.getMessage());
+            return new ModelAndView("registro-usuario", model);
+        }
+        return new ModelAndView("redirect:/registro-exitoso",model);
     }
 
     @RequestMapping(path = "/registro-exitoso", method = RequestMethod.GET)
     public ModelAndView registroExitoso() {
         return new ModelAndView("registro-exitoso");
     }
-
 }

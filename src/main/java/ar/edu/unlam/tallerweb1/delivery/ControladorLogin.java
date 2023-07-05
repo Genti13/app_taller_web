@@ -52,13 +52,11 @@ public class ControladorLogin {
 		// hace una llamada a otro action a traves de la URL correspondiente a esta
 		Usuario usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
 		if (usuarioBuscado != null) {
-
-			if((Boolean) request.getSession().getAttribute("Activo") != true){
-				return new ModelAndView("login", model);
-			}
-
-			request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
-			return new ModelAndView("redirect:/home");
+//			if((Boolean) request.getSession().getAttribute("Activo") != true){
+//				return new ModelAndView("login", model);
+//			}
+//			request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
+			return new ModelAndView("redirect:/profile");
 		} else {
 			// si el usuario no existe agrega un mensaje de error en el modelo.
 			model.put("error", "Usuario o clave incorrecta");
@@ -77,5 +75,4 @@ public class ControladorLogin {
 	public ModelAndView inicio() {
 		return new ModelAndView("redirect:/login");
 	}
-
 }

@@ -8,20 +8,16 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-
     <link href="css/registro.css" rel="stylesheet">
+    <meta http-equiv="Refresh" content="3;URL=/proyecto-limpio-spring/login">
 </head>
 <body>
     <div class="container">
         <div class="row">
             <div class="col-md-5">
                 <div id="loginbox" class="mainbox">
-                    <form:form action="login" method="GET" modelAttribute="datosRegistro">
-                        <h3 class="form-signin-heading">Te has registrado correctamente</h3>
+                        <h3 class="form-signin-heading">Te has registrado correctamente.</h3>
                         <hr class="colorgraph">
-                        <button id="btn-registrarme" class="btn btn-lg btn-success btn-block" type="submit">Inicar sesion</button>
-                    </form:form>
-
                     <c:if test="${not empty error}">
                         <div class="alert alert-danger" role="alert">${error}</div>
                     </c:if>

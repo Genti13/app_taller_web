@@ -16,28 +16,70 @@
         <div class="row">
             <div class="col-md-5">
                 <div id="loginbox" class="mainbox">
-                    <form:form action="registro-exitoso" method="GET" modelAttribute="datosRegistro">
+                    <form:form action="registrar-usuario" method="POST" modelAttribute="datosRegistro">
                         <h3 class="form-signin-heading">Completa tus datos</h3>
                         <hr class="colorgraph">
 
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <form:input path="email" id="email" class="form-control" />
+                            <form:input path="email" type="email" id="email" required="true" class="form-control" />
                         </div>
 
                         <div class="form-group">
                             <label for="password">Contraseña</label>
-                            <form:input path="password" type="password" id="password" class="form-control" />
+                            <form:input path="password" type="password" id="password" required="true" class="form-control" />
                         </div>
 
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
-                            <form:input path="nombre" type="nombre" id="nombre" class="form-control" />
+                            <form:input path="nombre" type="text" id="nombre" required="true" class="form-control" />
                         </div>
 
                         <div class="form-group">
                             <label for="apellido">Apellido</label>
-                            <form:input path="apellido" type="apellido" id="apellido" class="form-control" />
+                            <form:input path="apellido" type="text" id="apellido" required="true" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="estado">Estado</label>
+                        <form:select path="estado" id="estado" class="form-control">
+                            <form:option value="" selected="selected">--Seleccionar--</form:option>
+                            <form:option value="Cardiaco">Cardiaco</form:option>
+                        </form:select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edad">Edad</label>
+                            <form:input path="edad" type="text" id="edad" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="altura">Altura</label>
+                            <form:input path="altura" type="text" id="altura" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="peso">Peso</label>
+                            <form:input path="peso" type="text" id="peso" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="genero">Género</label>
+                            <form:select path="genero" type="text" id="genero" class="form-control">
+                                <form:option value="" selected="selected">--Seleccionar--</form:option>
+                                <form:option value="Masculino">Masculino</form:option>
+                                <form:option value="Masculino">Femenino</form:option>
+                            </form:select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="objetivo">Objetivo</label>
+                            <form:select path="objetivo" type="text" id="objetivo" class="form-control">
+                                <form:option value="" selected="selected">--Seleccionar--</form:option>
+                                <form:option value="0">Gestión</form:option>
+                                <form:option value="1">Pérdida de Peso</form:option>
+                                <form:option value="2">Ganancia de Peso</form:option>
+                            </form:select>
                         </div>
 
                         <button id="btn-registrarme" class="btn btn-lg btn-success btn-block" type="submit">Registrarme</button>
