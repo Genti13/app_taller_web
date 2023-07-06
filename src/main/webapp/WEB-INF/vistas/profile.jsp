@@ -14,10 +14,6 @@
 <body>
 
     <div class="profile_topBanner px-2 py-4 d-flex">
-        <div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Star_Wars_-_Darth_Vader.jpg" alt="profilePic"
-                class="profile_pic">
-        </div>
         <div class="ms-3 mt-3 text-white">
             <div class="d-flex">
                 <h2 class="me-2 mb-0">${nombre}</h2>
@@ -25,11 +21,7 @@
             </div>
             <h4 class="mt-0">CS: ${lastCS}</h4>
             <h5>${birthday}</h5>
-            <h5>Descripcion:</h5>
-            <div class="profile_description">
-                <p class="mb-0">${description}
-                </p>
-            </div>
+
         </div>
     </div>
 
@@ -43,16 +35,17 @@
             <div class="col-auto text-component profile_panels" style="width: 600px;height:400px;">
                 <h1>Funcionalidad: Historial de Dietas Va aca </h1>
 
-                <ul>
+    <c:if test="${conditionScore != null}">
 
+   <ul>
+     
+       <c:forEach var="cs" items="${conditionScore}">
+         <h1><c:out value="${cs}" /></h1>
+       </c:forEach>
+    
+   </ul>
 
-                <c:forEach var="dieta" items="${dietas}">
-                   <h1><c:out value="${dieta}" /></h1>
-                 </c:forEach>
-
-
-
-                </ul>
+   </c:if>
 
 
                 </div>
@@ -64,27 +57,12 @@
 <script src="js/echarts.min.js"></script>
 <script src="js/jquery-1.11.3.min.js"></script>
 
-<script>
-  <c:forEach var="dieta" items="${dietas}">
-     console.log('<c:out value="${dieta}" />');
-   </c:forEach>
-
-   <c:forEach var="punto" items="${puntos}">
-        console.log('<c:out value="${punto}" />');
-      </c:forEach>
-
-</script>
 
 <script type="text/javascript">
 
 let historic_cs = [];
 
-/*
-<c:forEach var="dieta" items="${dietas}">
-  historic_cs.push('<c:out value="${dieta}" />');
-</c:forEach>*/
-
-<c:forEach var="punto" items="${puntos}">
+<c:forEach var="punto" items="${conditionScore}">
   historic_cs.push('<c:out value="${punto}" />');
 </c:forEach>
 
@@ -92,25 +70,6 @@ let historic_cs = [];
 console.log(historic_cs)
 
     let historic_weeks = [];
-    /*
-    $.ajax({
-        url: "/proyecto-limpio-spring/pedir_CS",
-        type: "GET",
-        success: function (data) {
-        console.log(data)
-
-            historic_cs = data;
-            
-            historic_cs.forEach((week, n_week) => {
-                historic_weeks.push('Week ' + n_week);
-            })
-
-            generateGraph(historic_cs, historic_weeks);
-        },
-        error: function () {
-            console.log("FALLO");
-        }
-    });*/
 
                 historic_cs.forEach((week, n_week) => {
                     historic_weeks.push('Week ' + n_week);

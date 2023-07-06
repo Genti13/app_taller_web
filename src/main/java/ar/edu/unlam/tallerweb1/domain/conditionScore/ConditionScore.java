@@ -9,7 +9,7 @@ public class ConditionScore {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Integer> historico;
 
     public Long getId() {
@@ -23,6 +23,8 @@ public class ConditionScore {
     public ConditionScore() {
         this.historico = new ArrayList<>();
         this.historico.add(50);
+        this.historico.add(60);
+        this.historico.add(70);
     }
 
     public Integer getLastCS() {
