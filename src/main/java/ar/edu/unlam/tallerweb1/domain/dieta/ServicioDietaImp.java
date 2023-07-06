@@ -15,18 +15,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service("servicioDieta")
 @Transactional
 public class ServicioDietaImp implements ServicioDieta {
     private RepositorioDieta repositorioDieta;
 
+    @Autowired
     public ServicioDietaImp(RepositorioDieta repositorioDieta) {
         this.repositorioDieta = repositorioDieta;
     }
 
-    public ServicioDietaImp() {
-
-    }
 
     @Override
     public void agregarMenu(Dieta dieta, Menu menu, List<String> restricciones) throws MenuRestringidoException {

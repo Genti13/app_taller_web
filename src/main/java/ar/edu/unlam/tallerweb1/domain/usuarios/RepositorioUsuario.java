@@ -1,8 +1,10 @@
 package ar.edu.unlam.tallerweb1.domain.usuarios;
 
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+import org.springframework.stereotype.Repository;
 
 // Interface que define los metodos del Repositorio de Usuarios.
+@Repository
 public interface RepositorioUsuario {
 	Usuario getUsuario(String userName);
 	Usuario buscarUsuario(String email, String password);

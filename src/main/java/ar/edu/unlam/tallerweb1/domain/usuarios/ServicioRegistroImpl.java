@@ -17,10 +17,10 @@ public class ServicioRegistroImpl implements ServicioRegistro {
 
     @Override
     public void registrarUsuario(Usuario usuario) {
-        //Agregar mas validaciones?
+
         // Verificar si el correo electrónico ya está registrado
         if (repositorioUsuario.buscar(usuario.getEmail()) != null) {
-            throw new IllegalArgumentException("El correo electrónico ya está registrado");
+            throw new IllegalArgumentException("Los dtos ingresados no son validos");
         }
 
         // Guardar al usuario en el repositorio

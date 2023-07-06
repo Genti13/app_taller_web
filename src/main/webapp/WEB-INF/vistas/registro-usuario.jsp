@@ -30,6 +30,63 @@
                             <form:input path="password" type="password" id="password" class="form-control" />
                         </div>
 
+
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <form:input path="nombre" type="nombre" id="nombre" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="apellido">Apellido</label>
+                            <form:input path="apellido" type="apellido" id="apellido" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edad">Edad</label>
+                            <form:input path="edad" type="number" id="edad" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="altura">Altura (cm)</label>
+                            <form:input path="altura" type="number" id="altura" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="peso">Peso</label>
+                            <form:input path="peso" type="number" id="peso" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="genero">Género</label>
+                            <form:select path="genero" class="form-control">
+                                <form:option value="Femenino">Femenino</form:option>
+                                <form:option value="Masculino">Masculino</form:option>
+                                <form:option value="Otro">Otro</form:option>
+                                <form:option value="Prefiero no decirlo">Prefiero no decirlo</form:option>
+                            </form:select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="estado">Estado</label>
+                            <form:select path="estado" class="form-control">
+                                <form:option value="0">Sin enfermedad</form:option>
+                                <form:option value="1">Cardiaco</form:option>
+                                <form:option value="2">Diabetico</form:option>
+                                <form:option value="3">Hipertenso</form:option>
+                                <form:option value="4">Asmatico</form:option>
+                                <form:option value="5">Celiaco</form:option>
+                            </form:select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="objetivo">Objetivo</label>
+                            <form:select path="objetivo" class="form-control">
+                                 <form:option value="0">Gestion</form:option>
+                                 <form:option value="1">Ganancia de peso</form:option>
+                                 <form:option value="2">Perdida de peso</form:option>
+                            </form:select>
+                        </div>
+
                         <button id="btn-registrarme" class="btn btn-lg btn-success btn-block" type="submit">Registrarme</button>
                     </form:form>
 

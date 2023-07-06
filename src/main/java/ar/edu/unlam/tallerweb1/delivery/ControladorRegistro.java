@@ -1,6 +1,9 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.domain.conditionScore.ServicioConditionScoreImp;
+import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioUsuario;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+import ar.edu.unlam.tallerweb1.domain.conditionScore.ServicioConditionScore;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioRegistro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +19,14 @@ import javax.servlet.http.HttpServletRequest;
 public class ControladorRegistro {
 
     private ServicioRegistro servicioRegistro;
+    private ServicioUsuario servicioUsuario;
+    private ServicioConditionScore servicioCS;
 
     @Autowired
-    public ControladorRegistro(ServicioRegistro servicioRegistro) {
+    public ControladorRegistro(ServicioRegistro servicioRegistro, ServicioUsuario servicioUsuario, ServicioConditionScore servicioCS) {
         this.servicioRegistro = servicioRegistro;
+        this.servicioUsuario = servicioUsuario;
+        this.servicioCS = servicioCS;
     }
 
     @RequestMapping(path = "/registro-usuario")
@@ -35,6 +42,11 @@ public class ControladorRegistro {
 
         // Ejemplo de registro exitoso
         //servicioRegistro.registrarUsuario(usuario);
+
+        Usuario usuario = servicioUsuario.crearUsuario(datosRegistro);
+        servicioCS.saveCS(usuario.getConditionScore());
+        servicioRegistro.registrarUsuario(usuario);
+
         return new ModelAndView("registro-exitoso");
     }
 

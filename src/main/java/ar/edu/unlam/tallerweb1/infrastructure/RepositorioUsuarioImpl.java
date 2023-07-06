@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
 
+import ar.edu.unlam.tallerweb1.domain.estados.Cardiaco;
+import ar.edu.unlam.tallerweb1.domain.estados.Estado;
 import ar.edu.unlam.tallerweb1.domain.usuarios.RepositorioUsuario;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.hibernate.Session;
@@ -43,7 +45,10 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
 	@Override
 	public void guardar(Usuario usuario) {
+		//FIX TEMPORAL, CONSULTARLO
+		sessionFactory.getCurrentSession().save(usuario.getEstado());
 		sessionFactory.getCurrentSession().save(usuario);
+
 	}
 
 	@Override

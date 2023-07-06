@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain;
 
 import ar.edu.unlam.tallerweb1.domain.conditionScore.ConditionScore;
+import ar.edu.unlam.tallerweb1.domain.conditionScore.RepositorioConditionScore;
 import ar.edu.unlam.tallerweb1.domain.conditionScore.ServicioConditionScoreImp;
 import ar.edu.unlam.tallerweb1.domain.dieta.Dieta;
 import ar.edu.unlam.tallerweb1.domain.dieta.RepositorioDieta;
@@ -30,15 +31,17 @@ public class ConditionScoreTest {
     private ServicioConditionScoreImp servicioConditionScore;
     private RepositorioUsuario repositorioUsuario;
     private ServicioUsuarioImp servicioUsuario;
+    private RepositorioConditionScore repositorioCS;
     private ServicioDietaImp servicioDieta;
     private RepositorioDieta repositorioDieta;
 
     @Before
     public void init() {
         repositorioDieta = mock(RepositorioDieta.class);
+        repositorioCS = mock(RepositorioConditionScore.class);
         servicioUsuario = new ServicioUsuarioImp();
         servicioDieta = new ServicioDietaImp(this.repositorioDieta);
-        servicioConditionScore = new ServicioConditionScoreImp(this.servicioUsuario, this.servicioDieta);
+        servicioConditionScore = new ServicioConditionScoreImp(this.servicioUsuario, this.servicioDieta, this.repositorioCS);
         repositorioUsuario = mock(RepositorioUsuario.class);
         when(repositorioUsuario.getUsuario(any())).thenReturn(makePersona());
     }
