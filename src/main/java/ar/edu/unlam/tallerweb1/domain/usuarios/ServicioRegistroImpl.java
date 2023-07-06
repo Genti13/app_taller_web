@@ -6,8 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("servicioRegistro")
 @Transactional
-
-
 public class ServicioRegistroImpl implements ServicioRegistro {
 
     private RepositorioUsuario repositorioUsuario;

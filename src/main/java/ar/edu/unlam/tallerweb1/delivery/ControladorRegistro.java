@@ -30,16 +30,12 @@ public class ControladorRegistro {
     }
 
     @RequestMapping(path = "/registro-usuario", method = RequestMethod.POST)
-    public ModelAndView registrarUsuario(@ModelAttribute("datosRegistro") Usuario usuario, HttpServletRequest request) {
-        ModelMap model = new ModelMap();
-
+    public ModelAndView registrarUsuario(@ModelAttribute("datosRegistro") DatosRegistro datosRegistro, HttpServletRequest request) {
         // Aquí realizas las validaciones y lógica de registro
 
         // Ejemplo de registro exitoso
-        servicioRegistro.registrarUsuario(usuario);
-        model.put("mensaje", "Registro exitoso");
-
-        return new ModelAndView("login", model);
+        //servicioRegistro.registrarUsuario(usuario);
+        return new ModelAndView("registro-exitoso");
     }
 
     @RequestMapping(path = "/registro-exitoso", method = RequestMethod.GET)

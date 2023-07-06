@@ -8,6 +8,7 @@ import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import ar.edu.unlam.tallerweb1.domain.ejercicio.Ejercicio;
 import ar.edu.unlam.tallerweb1.domain.rutina.RutinaRestringidaException;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -99,7 +100,7 @@ public class ServicioDietaImp implements ServicioDieta {
 
     @Override
     public List<Dieta> dameRecomendadas(Usuario persona) {
-        List<Dieta> todasLasDietas = repositorioDieta.getAllDietas();
+        List<Dieta> todasLasDietas = repositorioDieta.getAllDietas(persona.getEmail());
         List<Dieta> recomendadasParaLaPersona = new ArrayList<>();
 
         for (Dieta dieta : todasLasDietas) {

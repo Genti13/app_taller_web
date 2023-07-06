@@ -8,7 +8,7 @@ import java.util.List;
 public interface RepositorioDieta {
 
     public List<Rutina> getRutinas();
-    public List<Dieta> getAllDietas();
+    public List<Dieta> getAllDietas(String mail);
 
     List<Dieta> buscarDietaConIDUsuario(Long idUsuario);
 
@@ -17,4 +17,6 @@ public interface RepositorioDieta {
     List<Dieta> getDietasRecomendadas();
 
     Usuario getUsuario(String s);
+
+    Dieta getUltimaDieta(String mail);
 }

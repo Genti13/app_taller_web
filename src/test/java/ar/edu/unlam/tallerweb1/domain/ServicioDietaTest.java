@@ -84,23 +84,45 @@ public class ServicioDietaTest {
 
     @Test
     public void alPedirListaDeDietasObtengo2Registros(){
-        List<Rutina> dietasMock = new ArrayList<>();
-        dietasMock.add(makeRutina());
-        dietasMock.add(makeRutina());
 
-        when(this.repositorioDieta.getRutinas()).thenReturn(dietasMock);
+        Usuario user = makePersona();
+        List<Dieta> dietas = makeDietas();
 
-        List<Rutina> dieta = repositorioDieta.getRutinas();
+        user.setDieta(dietas);
+
+        when(this.repositorioDieta.getAllDietas(user.getEmail())).thenReturn(dietas);
+
+        List<Dieta> dieta = repositorioDieta.getAllDietas(user.getEmail());
 
         assertThat(dieta).isNotNull();
         assertThat(dieta.size()).isEqualTo(2);
     }
 
     @Test
+    public void pedirUltimaDietaRetornaLaUltima(){
+        List<Dieta> dietas = makeDietas();
+
+        Dieta dietaEsperada = dietas.get(dietas.size()-1);
+
+        Usuario user = makePersona();
+
+        when(this.repositorioDieta.getUltimaDieta(user.getEmail())).thenReturn(dietas.get(dietas.size()-1));
+
+        Dieta dieta = this.repositorioDieta.getUltimaDieta(user.getEmail());
+
+        assertThat(dieta).isNotNull();
+        assertThat(dieta).isEqualTo(dietaEsperada);
+    }
+
+    @Test
     public void unaDietaTieneUnPuntaje(){
         final int VALOR_ESPERADO = 20;
-        when(repositorioDieta.getAllDietas()).thenReturn(this.makeDieta());
-        List<Dieta> dietas = repositorioDieta.getAllDietas();
+
+        Usuario usuario = makePersona();
+        usuario.setDieta(makeDietas());
+
+        when(repositorioDieta.getAllDietas(usuario.getEmail())).thenReturn(this.makeDietas());
+        List<Dieta> dietas = repositorioDieta.getAllDietas(usuario.getEmail());
 
         Dieta dietaACalcular = dietas.get(0);
         int puntajeObtenido = servicioDieta.calcularPuntaje(dietaACalcular);
@@ -117,7 +139,7 @@ public class ServicioDietaTest {
         List<Dieta> dietas = makeDistintasDietas();
 
         // Configuro el comportamiento del repositorio para devolver las dietas
-        when(repositorioDieta.getAllDietas()).thenReturn(dietas);
+        when(repositorioDieta.getAllDietas(persona.getEmail())).thenReturn(dietas);
 
         // Llamo al método que quiero probar
         List<Dieta> dietasRecomendadas = servicioDieta.dameRecomendadas(persona);
@@ -128,7 +150,16 @@ public class ServicioDietaTest {
 
     }
 
-    private List<Dieta> makeDieta(){
+    private List<Dieta> makeDietas(){
+        List<Dieta> dietas = new ArrayList<Dieta>();
+
+        dietas.add(makeDieta());
+        dietas.add(makeDieta());
+
+        return dietas;
+    }
+
+    private Dieta makeDieta(){
         Dieta dieta = new Dieta();
 
         ArrayList<Rutina> rutinas = new ArrayList<Rutina>();
@@ -140,11 +171,7 @@ public class ServicioDietaTest {
         dieta.setMenus(menus);
         dieta.setRutinas(rutinas);
 
-        List<Dieta> dietas = new ArrayList<Dieta>();
-
-        dietas.add(dieta);
-
-        return dietas;
+        return dieta;
     }
     private List<Dieta> makeDistintasDietas() {
         List<Dieta> dietas = new ArrayList<>();

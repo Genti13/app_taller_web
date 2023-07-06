@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-5">
                 <div id="loginbox" class="mainbox">
-                    <form:form action="registro-exitoso" method="GET" modelAttribute="datosRegistro">
+                    <form:form action="registro-usuario" method="POST" modelAttribute="datosRegistro">
                         <h3 class="form-signin-heading">Completa tus datos</h3>
                         <hr class="colorgraph">
 
@@ -28,16 +28,6 @@
                         <div class="form-group">
                             <label for="password">Contraseña</label>
                             <form:input path="password" type="password" id="password" class="form-control" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="nombre">Nombre</label>
-                            <form:input path="nombre" type="nombre" id="nombre" class="form-control" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="apellido">Apellido</label>
-                            <form:input path="apellido" type="apellido" id="apellido" class="form-control" />
                         </div>
 
                         <button id="btn-registrarme" class="btn btn-lg btn-success btn-block" type="submit">Registrarme</button>

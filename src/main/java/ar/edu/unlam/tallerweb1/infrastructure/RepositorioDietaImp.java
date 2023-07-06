@@ -4,7 +4,6 @@ import ar.edu.unlam.tallerweb1.domain.dieta.Dieta;
 import ar.edu.unlam.tallerweb1.domain.dieta.RepositorioDieta;
 import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -34,11 +33,6 @@ public class RepositorioDietaImp implements RepositorioDieta {
     }
 
     @Override
-    public List<Dieta> getAllDietas() {
-        return null;
-    }
-
-    @Override
     public List<Dieta> buscarDietaConIDUsuario(Long idUser) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -58,13 +52,31 @@ public class RepositorioDietaImp implements RepositorioDieta {
     }
 
     @Override
-    public List<Dieta> getDietasRecomendadas() {
-        return null;
-    }
-
-    @Override
     public Usuario getUsuario(String mail) {
         Session session = sessionFactory.getCurrentSession();
         return (Usuario) session.createCriteria(Usuario.class).add(Restrictions.eq("email", mail)).uniqueResult();
+    }
+
+    @Override
+    public Dieta getUltimaDieta(String mail) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Usuario usuario = (Usuario) session.createCriteria(Usuario.class).add(Restrictions.eq("email", mail)).uniqueResult();
+        Dieta dieta = usuario.getDieta().get(usuario.getDieta().size() -1);
+        return dieta;
+    }
+
+    @Override
+    public List<Dieta> getAllDietas(String mail) {
+        Session session = sessionFactory.getCurrentSession();
+
+        Usuario usuario = (Usuario) session.createCriteria(Usuario.class).add(Restrictions.eq("email", mail)).uniqueResult();
+        List<Dieta> dieta = usuario.getDieta();
+        return new ArrayList<Dieta>(dieta);
+    }
+
+    @Override
+    public List<Dieta> getDietasRecomendadas() {
+        return null;
     }
 }

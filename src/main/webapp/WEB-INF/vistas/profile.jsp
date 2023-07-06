@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,6 +33,7 @@
         </div>
     </div>
 
+
     <div class="profile_body mt-3">
         <div class="row gap-3 justify-content-center">
             <div id="chart_conditionScore" style="width: 600px;height:400px;" class="profile_panels col-auto"></div>
@@ -39,7 +41,21 @@
                 <h1>Funcionalidad: Dietas de esta semana van aca</h1>
             </div>
             <div class="col-auto text-component profile_panels" style="width: 600px;height:400px;">
-                <h1>Funcionalidad: Historial de Dietas Va aca</h1>
+                <h1>Funcionalidad: Historial de Dietas Va aca </h1>
+
+                <ul>
+
+
+                <c:forEach var="dieta" items="${dietas}">
+                   <h1><c:out value="${dieta}" /></h1>
+                 </c:forEach>
+
+
+
+                </ul>
+
+
+                </div>
             </div>
         </div>
     </div>
@@ -47,10 +63,36 @@
 
 <script src="js/echarts.min.js"></script>
 <script src="js/jquery-1.11.3.min.js"></script>
+
+<script>
+  <c:forEach var="dieta" items="${dietas}">
+     console.log('<c:out value="${dieta}" />');
+   </c:forEach>
+
+   <c:forEach var="punto" items="${puntos}">
+        console.log('<c:out value="${punto}" />');
+      </c:forEach>
+
+</script>
+
 <script type="text/javascript">
 
-    let historic_cs;
+let historic_cs = [];
+
+/*
+<c:forEach var="dieta" items="${dietas}">
+  historic_cs.push('<c:out value="${dieta}" />');
+</c:forEach>*/
+
+<c:forEach var="punto" items="${puntos}">
+  historic_cs.push('<c:out value="${punto}" />');
+</c:forEach>
+
+
+console.log(historic_cs)
+
     let historic_weeks = [];
+    /*
     $.ajax({
         url: "/proyecto-limpio-spring/pedir_CS",
         type: "GET",
@@ -68,7 +110,14 @@
         error: function () {
             console.log("FALLO");
         }
-    });
+    });*/
+
+                historic_cs.forEach((week, n_week) => {
+                    historic_weeks.push('Week ' + n_week);
+                })
+
+                generateGraph(historic_cs, historic_weeks);
+
 
     function generateGraph(historic_cs, historic_weeks) {
         var myChart = echarts.init(document.getElementById('chart_conditionScore'));
