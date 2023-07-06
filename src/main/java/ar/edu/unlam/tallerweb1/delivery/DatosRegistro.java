@@ -4,9 +4,14 @@ public class DatosRegistro {
 
     private String email;
     private String password;
-
     private String nombre;
     private String apellido;
+    private int edad;
+    private int altura;
+    private int peso;
+    private int estado; // Para almacenar el ID del estado seleccionado
+    private String genero;
+    private int objetivo;
 
 
     public String getNombre() {
@@ -39,5 +44,53 @@ public class DatosRegistro {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public int getObjetivo() {
+        return objetivo;
+    }
+
+    public void setObjetivo(int objetivo) {
+        this.objetivo = objetivo;
+    }
+
+    public int getAltura() {
+        return altura;
+    }
+
+    public void setAltura(int altura) {
+        this.altura = altura;
+    }
+
+    public int getPeso() {
+        return peso;
+    }
+
+    public void setPeso(int peso) {
+        this.peso = peso;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 }

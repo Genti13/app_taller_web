@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioUsuario;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+import ar.edu.unlam.tallerweb1.domain.conditionScore.ServicioConditionScore;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioRegistro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 public class ControladorRegistro {
 
     private ServicioRegistro servicioRegistro;
+    private ServicioUsuario servicioUsuario;
+    private ServicioConditionScore servicioCS;
 
     @Autowired
-    public ControladorRegistro(ServicioRegistro servicioRegistro) {
+    public ControladorRegistro(ServicioRegistro servicioRegistro, ServicioUsuario servicioUsuario, ServicioConditionScore servicioCS) {
         this.servicioRegistro = servicioRegistro;
+        this.servicioUsuario = servicioUsuario;
+        this.servicioCS = servicioCS;
     }
 
     @RequestMapping(path = "/registro-usuario")
@@ -30,12 +36,11 @@ public class ControladorRegistro {
     }
 
     @RequestMapping(path = "/registro-usuario", method = RequestMethod.POST)
-    public ModelAndView registrarUsuario(@ModelAttribute("datosRegistro") Usuario usuario, HttpServletRequest request) {
+    public ModelAndView registrarUsuario(@ModelAttribute("datosRegistro") DatosRegistro datosRegistro, HttpServletRequest request) {
         ModelMap model = new ModelMap();
 
-        // Aquí realizas las validaciones y lógica de registro
-
-        // Ejemplo de registro exitoso
+        Usuario usuario = servicioUsuario.crearUsuario(datosRegistro);
+        servicioCS.saveCS(usuario.getConditionScore());
         servicioRegistro.registrarUsuario(usuario);
         model.put("mensaje", "Registro exitoso");
 

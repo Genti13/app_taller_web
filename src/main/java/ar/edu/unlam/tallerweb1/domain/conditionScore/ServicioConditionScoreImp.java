@@ -3,6 +3,12 @@ package ar.edu.unlam.tallerweb1.domain.conditionScore;
 import ar.edu.unlam.tallerweb1.domain.dieta.ServicioDietaImp;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioUsuario;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service("servicioCS")
+@Transactional
 
 public class ServicioConditionScoreImp implements  ServicioConditionScore{
     private static final int VALOR_MIN_PERDIDA = 500;
@@ -13,16 +19,17 @@ public class ServicioConditionScoreImp implements  ServicioConditionScore{
 
     private ServicioUsuario servicioUsuario;
     private ServicioDietaImp servicioDieta;
+    private RepositorioConditionScore repositorioCS;
 
-    public ServicioConditionScoreImp(ServicioUsuario servicioPersona, ServicioDietaImp servicioDieta) {
+    @Autowired
+    public ServicioConditionScoreImp(ServicioUsuario servicioPersona, ServicioDietaImp servicioDieta, RepositorioConditionScore repositorioCS) {
         this.servicioDieta = servicioDieta;
         this.servicioUsuario = servicioPersona;
+        this.repositorioCS = repositorioCS;
     }
     public Integer getActual(Usuario persona) {
         return persona.getConditionScore().getLastCS();
     }
-
-
 
     public int calculateEffectivity(Usuario persona) {
         int tmb = servicioUsuario.getTMB(persona); //necesita 1500
@@ -55,5 +62,10 @@ public class ServicioConditionScoreImp implements  ServicioConditionScore{
     @Override
     public void updateWeeklyCS(Usuario persona, int newCS) {
         servicioUsuario.updateCS(persona, this.getActual(persona) + newCS);
+    }
+
+    @Override
+    public void saveCS(ConditionScore conditionScore) {
+    repositorioCS.guardarCS(conditionScore);
     }
 }

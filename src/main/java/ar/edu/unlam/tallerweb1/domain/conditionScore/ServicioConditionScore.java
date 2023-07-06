@@ -6,6 +6,6 @@ public interface ServicioConditionScore {
 
     public Integer getActual(Usuario persona);
     public int calculateEffectivity(Usuario persona);
-
     void updateWeeklyCS(Usuario persona, int newCs);
+    void saveCS(ConditionScore conditionScore);
 }
