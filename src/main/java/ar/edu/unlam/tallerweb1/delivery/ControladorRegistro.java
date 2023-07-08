@@ -38,11 +38,6 @@ public class ControladorRegistro {
 
     @RequestMapping(path = "/registro-usuario", method = RequestMethod.POST)
     public ModelAndView registrarUsuario(@ModelAttribute("datosRegistro") DatosRegistro datosRegistro, HttpServletRequest request) {
-        // Aquí realizas las validaciones y lógica de registro
-
-        // Ejemplo de registro exitoso
-        //servicioRegistro.registrarUsuario(usuario);
-
         Usuario usuario = servicioUsuario.crearUsuario(datosRegistro);
         servicioCS.saveCS(usuario.getConditionScore());
         servicioRegistro.registrarUsuario(usuario);

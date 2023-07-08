@@ -55,5 +55,15 @@ public class ControladorProfile {
         return new ModelAndView("profile", model);
     }
 
+    @RequestMapping(path = "/editprofile", method = RequestMethod.GET)
+    public ModelAndView irAEditarPerfil() {
+        ModelMap model = new ModelMap();
+        model.addAttribute("datosRegistro", new DatosRegistro());
+        return new ModelAndView("editprofile", model);
+    }
 
+    @RequestMapping(path = "/act-condiciones", method = RequestMethod.POST)
+    public ModelAndView actualizarCondiciones() {
+        return new ModelAndView("act-condiciones");
+    }
 }

@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="css/profile.css">
-    <title>Profile</title>
+    <title>Home</title>
 </head>
 
 <body>
@@ -23,6 +23,9 @@
             <h5>${birthday}</h5>
 
         </div>
+
+        <a href="editprofile" class="btn btn-primary ms-auto me-3 mt-3">Editar Perfil</button>
+
     </div>
 
 
@@ -38,11 +41,11 @@
     <c:if test="${conditionScore != null}">
 
    <ul>
-     
+
        <c:forEach var="cs" items="${conditionScore}">
          <h1><c:out value="${cs}" /></h1>
        </c:forEach>
-    
+
    </ul>
 
    </c:if>

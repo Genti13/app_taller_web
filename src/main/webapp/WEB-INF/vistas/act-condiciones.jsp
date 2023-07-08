@@ -16,10 +16,10 @@
         <div class="row">
             <div class="col-md-5">
                 <div id="loginbox" class="mainbox">
-                    <form:form action="login" method="GET" modelAttribute="datosRegistro">
-                        <h3 class="form-signin-heading">Te has registrado correctamente</h3>
+                    <form:form action="profile" method="POST" modelAttribute="datosRegistro">
+                        <h3 class="form-signin-heading">Tus datos se actualizaron correctamente</h3>
                         <hr class="colorgraph">
-                        <button id="btn-registrarme" class="btn btn-lg btn-success btn-block" type="submit">Inicar sesion</button>
+                        <button id="btn-registrarme" class="btn btn-lg btn-success btn-block" type="submit">Volver al home</button>
                     </form:form>
 
                     <c:if test="${not empty error}">

@@ -66,27 +66,6 @@
                             </form:select>
                         </div>
 
-                        <div class="form-group">
-                            <label for="estado">Estado</label>
-                            <form:select path="estado" class="form-control">
-                                <form:option value="0">Sin enfermedad</form:option>
-                                <form:option value="1">Cardiaco</form:option>
-                                <form:option value="2">Diabetico</form:option>
-                                <form:option value="3">Hipertenso</form:option>
-                                <form:option value="4">Asmatico</form:option>
-                                <form:option value="5">Celiaco</form:option>
-                            </form:select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="objetivo">Objetivo</label>
-                            <form:select path="objetivo" class="form-control">
-                                 <form:option value="0">Gestion</form:option>
-                                 <form:option value="1">Ganancia de peso</form:option>
-                                 <form:option value="2">Perdida de peso</form:option>
-                            </form:select>
-                        </div>
-
                         <button id="btn-registrarme" class="btn btn-lg btn-success btn-block" type="submit">Registrarme</button>
                     </form:form>
 
