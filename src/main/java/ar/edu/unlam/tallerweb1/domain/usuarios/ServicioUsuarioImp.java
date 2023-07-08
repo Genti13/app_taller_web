@@ -3,9 +3,17 @@ package ar.edu.unlam.tallerweb1.domain.usuarios;
 import ar.edu.unlam.tallerweb1.delivery.DatosRegistro;
 import ar.edu.unlam.tallerweb1.domain.conditionScore.ConditionScore;
 import ar.edu.unlam.tallerweb1.domain.dieta.Dieta;
+import ar.edu.unlam.tallerweb1.domain.ejercicio.Ejercicio;
 import ar.edu.unlam.tallerweb1.domain.estados.Cardiaco;
 import ar.edu.unlam.tallerweb1.domain.estados.Estado;
+import ar.edu.unlam.tallerweb1.domain.menu.Ingrediente;
+import ar.edu.unlam.tallerweb1.domain.menu.Menu;
+import ar.edu.unlam.tallerweb1.domain.menu.Plato;
+import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ServicioUsuarioImp implements ServicioUsuario {
@@ -59,4 +67,5 @@ public class ServicioUsuarioImp implements ServicioUsuario {
     public void updateCS(Usuario persona, int newCS) {
         persona.addNewWeekCS(newCS);
     }
+
 }

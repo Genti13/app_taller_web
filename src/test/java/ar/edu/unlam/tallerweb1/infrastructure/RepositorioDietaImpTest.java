@@ -38,7 +38,6 @@ public class RepositorioDietaImpTest extends SpringTest {
 
         List<Dieta> dietas = new ArrayList<>();
         Dieta dieta = new Dieta();
-        dieta.setUsuario(usuario);
         dietas.add(dieta);
 
 

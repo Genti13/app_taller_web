@@ -24,7 +24,7 @@
 
         </div>
 
-        <a href="editprofile" class="btn btn-primary ms-auto me-3 mt-3">Editar Perfil</button>
+        <a href="editar-perfil" class="btn btn-primary ms-auto me-3 mt-3">Editar Perfil</button>
 
     </div>
 
@@ -33,11 +33,53 @@
         <div class="row gap-3 justify-content-center">
             <div id="chart_conditionScore" style="width: 600px;height:400px;" class="profile_panels col-auto"></div>
             <div class="col-auto text-component profile_panels" style="width: 600px;height:400px;">
-                <h1>Funcionalidad: Dietas de esta semana van aca</h1>
+                <h4 class="ps-1 pt-1">Tu dieta para esta semana</h4>
+                <div>
+                    <h5 class="col-3">Menu</h5>
+                    <div class="row">
+                        <h6 class="col-3">Ingredientes</h6>
+                        <h6 class="col-3">Calorias</h6>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3" id="ingrediente1"></div>
+                        <div class="col-3" id="calorias1"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3" id="ingrediente2"></div>
+                        <div class="col-3" id="calorias2"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <h5 class="col-3  pt-2">Rutina</h5>
+                    <div class="row">
+                        <h6 class="col-3">Ejercicio</h6>
+                        <h6 class="col-3">Duracion</h6>
+                        <h6 class="col-5">Calorias Quemadas</h6>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3" id="ejercicio1"></div>
+                        <div class="col-3" id="duracion1"></div>
+                        <div class="col-5" id="caloriasQ1"> </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3" id="ejercicio2"></div>
+                        <div class="col-3" id="duracion2"></div>
+                        <div class="col-5" id="caloriasQ2"> </div>
+                    </div>
+             
+                
+                </div>
+    
             </div>
             <div class="col-auto text-component profile_panels" style="width: 600px;height:400px;">
-                <h1>Funcionalidad: Historial de Dietas Va aca </h1>
+                <h4 class="ps-1 pt-1">Todas tus dietas </h4>
 
+<<<<<<< HEAD
     <c:if test="${conditionScore != null}">
 
    <ul>
@@ -49,6 +91,9 @@
    </ul>
 
    </c:if>
+=======
+                
+>>>>>>> b99638a71b37fb9318c5406a369bfec6a20fbc4f
 
 
                 </div>
@@ -66,11 +111,38 @@
 let historic_cs = [];
 
 <c:forEach var="punto" items="${conditionScore}">
-  historic_cs.push('<c:out value="${punto}" />');
+  historic_cs.unshift('<c:out value="${punto}" />');
 </c:forEach>
 
+var user = "alanaumente@gmail.com";
+var pass = "1234";
 
-console.log(historic_cs)
+$.ajax({
+  url: "/proyecto-limpio-spring/getAllDietas?user=" + user + "&pass=" + pass,
+  method: "GET",
+  success: function(response) {
+    console.log(response);
+
+    $('#ingrediente1').html(response[0].menus[0].platos[0].ingredientes[0].nombre);
+    $('#calorias1').html(response[0].menus[0].platos[0].ingredientes[0].calorias);
+
+    $('#ingrediente2').html(response[0].menus[0].platos[0].ingredientes[1].nombre);
+    $('#calorias2').html(response[0].menus[0].platos[0].ingredientes[1].calorias);
+
+    $('#ejercicio1').html(response[0].rutinas[0].ejercicios[0].nombre);
+    $('#duracion1').html(response[0].rutinas[0].ejercicios[0].duracion);
+    $('#caloriasQ1').html(response[0].rutinas[0].ejercicios[0].valorEnBaseACaloriasQuemadas);
+
+    $('#ejercicio2').html(response[0].rutinas[0].ejercicios[1].nombre);
+    $('#duracion2').html(response[0].rutinas[0].ejercicios[1].duracion);
+    $('#caloriasQ2').html(response[0].rutinas[0].ejercicios[1].valorEnBaseACaloriasQuemadas);
+    
+  },
+  error: function(xhr, status, error) {
+    
+  }
+});
+
 
     let historic_weeks = [];
 
@@ -79,6 +151,8 @@ console.log(historic_cs)
                 })
 
                 generateGraph(historic_cs, historic_weeks);
+
+                
 
 
     function generateGraph(historic_cs, historic_weeks) {

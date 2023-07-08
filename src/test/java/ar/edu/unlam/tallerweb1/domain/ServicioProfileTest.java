@@ -1,4 +1,4 @@
-package ar.edu.unlam.tallerweb1.delivery;
+package ar.edu.unlam.tallerweb1.domain;
 
 import ar.edu.unlam.tallerweb1.domain.conditionScore.ConditionScore;
 import ar.edu.unlam.tallerweb1.domain.dieta.Dieta;
@@ -9,50 +9,47 @@ import ar.edu.unlam.tallerweb1.domain.menu.Ingrediente;
 import ar.edu.unlam.tallerweb1.domain.menu.Menu;
 import ar.edu.unlam.tallerweb1.domain.menu.Plato;
 import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
-import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.domain.usuarios.RepositorioUsuario;
+import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioProfile;
+import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioProfileImp;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
+import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-public class ControladorAPI {
-    ServicioLogin servicioLogin;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-    @Autowired
-    public ControladorAPI(ServicioLogin servicioLogin) {
-        this.servicioLogin = servicioLogin;
+public class ServicioProfileTest {
+
+    ServicioProfile servicioProfile;
+    RepositorioUsuario repositorioUsuario;
+
+    @Before
+    public void init(){
+        repositorioUsuario = mock(RepositorioUsuario.class);
+        servicioProfile = new ServicioProfileImp(repositorioUsuario);
     }
 
-    @RequestMapping(path = "/getAllDietas", method = RequestMethod.GET)
-    public ResponseEntity<List<Dieta>> getDietas(@RequestParam("user") String user, @RequestParam("pass") String pass) {
-       //Usuario usuario = servicioLogin.consultarUsuario(user,pass);
+    @Test
+    public void dadoUnMailObetenerElUsuario(){
+        final String MAIL = "aaa@bbb.com";
 
         Usuario usuario = makePersona();
+        usuario.setEmail(MAIL);
+        usuario.setNombre("Alan");
+        usuario.setApellido("Gentile");
 
-        List<Dieta> dietas = usuario.getDieta();
+        when(repositorioUsuario.getUsuario(any())).thenReturn(usuario);
 
-        return ResponseEntity.ok(dietas);
-    }
+        Usuario usuarioEncontrado = servicioProfile.getUserData(MAIL);
 
-    private Usuario makePersona() {
-        Estado enfermedad = new Cardiaco();
-        Usuario persona = new Usuario();
-        persona.setDieta(makeDieta());
-        persona.setEstado(enfermedad);
-        persona.setEdad(25);
-        persona.setAltura(1.75);
-        persona.setPeso(52);
-        persona.setGenero("Female");
-        persona.setObjetivo(1); //0 => Gestion; 1=> Perdida de Peso; 2=> Ganancia de peso;
-        persona.setConditionScore(new ConditionScore());
-
-        return persona;
+        assertThat(usuarioEncontrado).isNotNull();
+        assertThat(usuarioEncontrado).isEqualTo(usuario);
     }
 
     private List<Dieta> makeDieta() {
@@ -98,6 +95,21 @@ public class ControladorAPI {
         ejercicios.add(ej2);
 
         return new Rutina(ejercicios);
+    }
+
+    private Usuario makePersona() {
+        Estado enfermedad = new Cardiaco();
+        Usuario persona = new Usuario();
+        persona.setDieta(makeDieta());
+        persona.setEstado(enfermedad);
+        persona.setEdad(25);
+        persona.setAltura(1.75);
+        persona.setPeso(52);
+        persona.setGenero("Female");
+        persona.setObjetivo(1); //0 => Gestion; 1=> Perdida de Peso; 2=> Ganancia de peso;
+        persona.setConditionScore(new ConditionScore());
+
+        return persona;
     }
 
 }

@@ -1,7 +1,13 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
 
+import ar.edu.unlam.tallerweb1.domain.dieta.Dieta;
+import ar.edu.unlam.tallerweb1.domain.ejercicio.Ejercicio;
 import ar.edu.unlam.tallerweb1.domain.estados.Cardiaco;
 import ar.edu.unlam.tallerweb1.domain.estados.Estado;
+import ar.edu.unlam.tallerweb1.domain.menu.Ingrediente;
+import ar.edu.unlam.tallerweb1.domain.menu.Menu;
+import ar.edu.unlam.tallerweb1.domain.menu.Plato;
+import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import ar.edu.unlam.tallerweb1.domain.usuarios.RepositorioUsuario;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.hibernate.Session;
@@ -45,10 +51,29 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
 	@Override
 	public void guardar(Usuario usuario) {
-		//FIX TEMPORAL, CONSULTARLO
 		sessionFactory.getCurrentSession().save(usuario.getEstado());
-		sessionFactory.getCurrentSession().save(usuario);
 
+//		for (Dieta dieta : usuario.getDieta()){
+//			for (Menu menu: dieta.getMenus()){
+//				for(Plato plato : menu.getPlatos()){
+//					for (Ingrediente ingrediente: plato.getIngredientes()){
+//						sessionFactory.getCurrentSession().save(ingrediente);
+//					}
+//					sessionFactory.getCurrentSession().save(plato);
+//				}
+//				sessionFactory.getCurrentSession().save(menu);
+//			}
+//
+//			for (Rutina rutina : dieta.getRutinas()){
+//				for(Ejercicio ejercicio : rutina.getEjercicios()){
+//					sessionFactory.getCurrentSession().save(ejercicio);
+//				}
+//				sessionFactory.getCurrentSession().save(rutina);
+//			}
+//			sessionFactory.getCurrentSession().persist(dieta);
+//		}
+
+		sessionFactory.getCurrentSession().save(usuario);
 	}
 
 	@Override

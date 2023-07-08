@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.domain.dieta.Dieta;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioProfile;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,10 +20,12 @@ import java.util.ArrayList;
 @Controller
 public class ControladorProfile {
     private ServicioLogin servicioLogin;
+    private ServicioProfile servicioProfile;
 
     @Autowired
-    public ControladorProfile(ServicioLogin servicioLogin){
+    public ControladorProfile(ServicioLogin servicioLogin, ServicioProfile servicioProfile){
         this.servicioLogin = servicioLogin;
+        this.servicioProfile = servicioProfile;
     }
 
     @RequestMapping(path = "/profile", method = RequestMethod.POST)
@@ -35,32 +39,36 @@ public class ControladorProfile {
         model.put("nombre", usuario.getNombre());
         model.put("apellido", usuario.getApellido());
 
-
         model.put("dietas", usuario.getDieta());
         model.put("conditionScore", usuario.getConditionScore().getHistorico());
+        model.put("lastCS", usuario.getConditionScore().getLastCS());
 
-//        ArrayList<String> dietas = new ArrayList<>();
-//        dietas.add("Uno");
-//        dietas.add("Dos");
-//        dietas.add("Tres");
-//
-//
-//        ArrayList<Integer> puntos = new ArrayList<>();
-//
-//        puntos.add(50);
-//        puntos.add(60);
-//        puntos.add(75);
-//        puntos.add(85);
+        request.setAttribute("user", usuario.getEmail());
 
         return new ModelAndView("profile", model);
     }
-
+/*
+<<<<<<< HEAD
     @RequestMapping(path = "/editprofile", method = RequestMethod.GET)
     public ModelAndView irAEditarPerfil() {
         ModelMap model = new ModelMap();
         model.addAttribute("datosRegistro", new DatosRegistro());
         return new ModelAndView("editprofile", model);
     }
+=======
+ */   @RequestMapping(path = "/editar-perfil", method = RequestMethod.GET)
+    public ModelAndView irAEditarPerfil(HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+
+        String mail = (String) request.getAttribute("user");
+        Usuario usuario = servicioProfile.getUserData(mail);
+
+        model.addAttribute("datosRegistro", usuario);
+
+        return new ModelAndView("editar-perfil", model);
+    }
+
+//>>>>>>> b99638a71b37fb9318c5406a369bfec6a20fbc4f
 
     @RequestMapping(path = "/act-condiciones", method = RequestMethod.POST)
     public ModelAndView actualizarCondiciones() {
