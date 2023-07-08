@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.domain.dieta.Dieta;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -35,25 +36,13 @@ public class ControladorProfile {
         model.put("nombre", usuario.getNombre());
         model.put("apellido", usuario.getApellido());
 
-
         model.put("dietas", usuario.getDieta());
         model.put("conditionScore", usuario.getConditionScore().getHistorico());
-
-//        ArrayList<String> dietas = new ArrayList<>();
-//        dietas.add("Uno");
-//        dietas.add("Dos");
-//        dietas.add("Tres");
-//
-//
-//        ArrayList<Integer> puntos = new ArrayList<>();
-//
-//        puntos.add(50);
-//        puntos.add(60);
-//        puntos.add(75);
-//        puntos.add(85);
+        model.put("lastCS", usuario.getConditionScore().getLastCS());
 
         return new ModelAndView("profile", model);
     }
+
 
 
 }

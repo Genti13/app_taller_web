@@ -9,11 +9,12 @@ import ar.edu.unlam.tallerweb1.domain.menu.Ingrediente;
 import ar.edu.unlam.tallerweb1.domain.menu.Menu;
 import ar.edu.unlam.tallerweb1.domain.menu.Plato;
 import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
+import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
 import java.util.ArrayList;
@@ -21,23 +22,22 @@ import java.util.List;
 
 @RestController
 public class ControladorAPI {
+    ServicioLogin servicioLogin;
 
-    @RequestMapping(path = "/pedir_CS", method = RequestMethod.GET)
-    public ResponseEntity getCS(){
-        int numero = 8;
-        int[] cs = {50,45,40,30,40,50,60,70,80};
-        List<Usuario> users = new ArrayList<>();
-        users.add(makePersona());
-
-        return ResponseEntity.ok(users);
+    @Autowired
+    public ControladorAPI(ServicioLogin servicioLogin) {
+        this.servicioLogin = servicioLogin;
     }
 
+    @RequestMapping(path = "/getAllDietas", method = RequestMethod.GET)
+    public ResponseEntity<List<Dieta>> getDietas(@RequestParam("user") String user, @RequestParam("pass") String pass) {
+       //Usuario usuario = servicioLogin.consultarUsuario(user,pass);
 
-    @RequestMapping(path = "/enviarWP", method = RequestMethod.GET)
-    public void sendWP(){
+        Usuario usuario = makePersona();
 
+        List<Dieta> dietas = usuario.getDieta();
 
-
+        return ResponseEntity.ok(dietas);
     }
 
     private Usuario makePersona() {

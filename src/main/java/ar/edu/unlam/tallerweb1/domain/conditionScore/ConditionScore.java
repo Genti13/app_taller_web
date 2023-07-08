@@ -23,8 +23,11 @@ public class ConditionScore {
     public ConditionScore() {
         this.historico = new ArrayList<>();
         this.historico.add(50);
-        this.historico.add(60);
-        this.historico.add(70);
+        this.historico.add(55);
+        this.historico.add(64);
+        this.historico.add(59);
+        this.historico.add(67);
+        this.historico.add(77);
     }
 
     public Integer getLastCS() {

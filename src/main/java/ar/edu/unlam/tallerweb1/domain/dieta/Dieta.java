@@ -21,8 +21,7 @@ public class Dieta {
     @OneToMany
     private List<Rutina> rutinas;
 
-    @ManyToOne
-    private Usuario usuario;
+
     private int puntaje;
 
 
@@ -52,14 +51,6 @@ public class Dieta {
         if (o == null || getClass() != o.getClass()) return false;
         Dieta dieta = (Dieta) o;
         return Objects.equals(menus, dieta.menus) && Objects.equals(rutinas, dieta.rutinas);
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     @Override

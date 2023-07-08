@@ -76,6 +76,8 @@ public class ControladorProfileTest {
         final String PASS  = "123`";
 
         Usuario usuario = new Usuario();
+        ConditionScore conditionScore = new ConditionScore();
+        usuario.setConditionScore(conditionScore);
         List<Dieta> dietasEsperadas = makeDieta();
         usuario.setDieta(dietasEsperadas);
         usuario.setEmail(MAIL);
@@ -113,11 +115,12 @@ public class ControladorProfileTest {
         when(servicioLogin.consultarUsuario(any(), any())).thenReturn(usuario);
         ModelAndView vista = controladorProfile.irAPerfil(datosLogin, request);
 
-        ConditionScore conditionScore = (ConditionScore) vista.getModel().get("conditionScore");
+        List<Integer> conditionScore = (ArrayList) vista.getModel().get("conditionScore");
 
 
         assertThat(conditionScore).isNotNull();
-        assertThat(conditionScore.getLastCS()).isEqualTo(50);
+        assertThat(conditionScore.size()).isEqualTo(3);
+        assertThat(conditionScore.get(conditionScore.size()-1)).isEqualTo(70);
 
     }
 
