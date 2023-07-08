@@ -70,7 +70,7 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 //				}
 //				sessionFactory.getCurrentSession().save(rutina);
 //			}
-//			sessionFactory.getCurrentSession().save(dieta);
+//			sessionFactory.getCurrentSession().persist(dieta);
 //		}
 
 		sessionFactory.getCurrentSession().save(usuario);

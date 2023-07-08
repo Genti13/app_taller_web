@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.delivery;
 
 import ar.edu.unlam.tallerweb1.domain.dieta.Dieta;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioProfile;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,10 +20,12 @@ import java.util.ArrayList;
 @Controller
 public class ControladorProfile {
     private ServicioLogin servicioLogin;
+    private ServicioProfile servicioProfile;
 
     @Autowired
-    public ControladorProfile(ServicioLogin servicioLogin){
+    public ControladorProfile(ServicioLogin servicioLogin, ServicioProfile servicioProfile){
         this.servicioLogin = servicioLogin;
+        this.servicioProfile = servicioProfile;
     }
 
     @RequestMapping(path = "/profile", method = RequestMethod.POST)
@@ -40,9 +43,22 @@ public class ControladorProfile {
         model.put("conditionScore", usuario.getConditionScore().getHistorico());
         model.put("lastCS", usuario.getConditionScore().getLastCS());
 
+        request.setAttribute("user", usuario.getEmail());
+
         return new ModelAndView("profile", model);
     }
 
+    @RequestMapping("/editar-perfil")
+    public ModelAndView irAEditarPerfil(HttpServletRequest request) {
+        ModelMap model = new ModelMap();
+
+        String mail = (String) request.getAttribute("user");
+        Usuario usuario = servicioProfile.getUserData(mail);
+
+        model.put("user", usuario);
+
+        return new ModelAndView("editar-perfil", model);
+    }
 
 
 }

@@ -11,6 +11,7 @@ import ar.edu.unlam.tallerweb1.domain.menu.Menu;
 import ar.edu.unlam.tallerweb1.domain.menu.Plato;
 import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioProfile;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,13 +35,15 @@ public class ControladorProfileTest {
     private HttpServletRequest request;
     private ServicioLogin servicioLogin;
     private ControladorProfile controladorProfile;
+    private ServicioProfile servicioProfile;
 
     @Before
     public void init(){
         session = mock(HttpSession.class);
         request = mock(HttpServletRequest.class);
         servicioLogin = mock(ServicioLogin.class);
-        controladorProfile = new ControladorProfile(servicioLogin);
+        servicioProfile = mock(ServicioProfile.class);
+        controladorProfile = new ControladorProfile(servicioLogin, servicioProfile);
     }
 
     @Test
@@ -119,8 +122,8 @@ public class ControladorProfileTest {
 
 
         assertThat(conditionScore).isNotNull();
-        assertThat(conditionScore.size()).isEqualTo(3);
-        assertThat(conditionScore.get(conditionScore.size()-1)).isEqualTo(70);
+        assertThat(conditionScore.size()).isEqualTo(6);
+        assertThat(conditionScore.get(conditionScore.size()-1)).isEqualTo(77);
 
     }
 
