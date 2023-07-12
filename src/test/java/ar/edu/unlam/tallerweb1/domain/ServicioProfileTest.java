@@ -44,7 +44,7 @@ public class ServicioProfileTest {
         usuario.setNombre("Alan");
         usuario.setApellido("Gentile");
 
-        when(repositorioUsuario.getUsuario(any())).thenReturn(usuario);
+        when(repositorioUsuario.buscar(any())).thenReturn(usuario);
 
         Usuario usuarioEncontrado = servicioProfile.getUserData(MAIL);
 

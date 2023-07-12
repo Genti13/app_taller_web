@@ -12,6 +12,7 @@ import ar.edu.unlam.tallerweb1.domain.menu.Plato;
 import ar.edu.unlam.tallerweb1.domain.rutina.Rutina;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioProfile;
+import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioUsuario;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,13 +38,15 @@ public class ControladorProfileTest {
     private ControladorProfile controladorProfile;
     private ServicioProfile servicioProfile;
 
+    private ServicioUsuario servicioUsuario;
+
     @Before
     public void init(){
         session = mock(HttpSession.class);
         request = mock(HttpServletRequest.class);
         servicioLogin = mock(ServicioLogin.class);
         servicioProfile = mock(ServicioProfile.class);
-        controladorProfile = new ControladorProfile(servicioLogin, servicioProfile);
+        controladorProfile = new ControladorProfile(servicioLogin, servicioProfile, servicioUsuario);
     }
 
     @Test

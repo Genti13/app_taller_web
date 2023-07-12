@@ -15,6 +15,6 @@ public class ServicioProfileImp implements ServicioProfile{
 
     @Override
     public Usuario getUserData(String mail) {
-        return repositorioUsuario.getUsuario("mail");
+        return repositorioUsuario.buscar("mail");
     }
 }

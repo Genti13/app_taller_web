@@ -43,7 +43,7 @@ public class ConditionScoreTest {
         servicioDieta = new ServicioDietaImp(this.repositorioDieta);
         servicioConditionScore = new ServicioConditionScoreImp(this.servicioUsuario, this.servicioDieta, this.repositorioCS);
         repositorioUsuario = mock(RepositorioUsuario.class);
-        when(repositorioUsuario.getUsuario(any())).thenReturn(makePersona());
+        when(repositorioUsuario.buscar(any())).thenReturn(makePersona());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class ConditionScoreTest {
     public void calcularTMBPersonaSinEjercicio() {
         final int VALOR_ESPERADO = 1782;
 
-        Usuario persona = repositorioUsuario.getUsuario("userName");
+        Usuario persona = repositorioUsuario.buscar("userName");
         int valorObtenido = servicioUsuario.getTMB(persona);
 
         assertThat(valorObtenido).isEqualTo(VALOR_ESPERADO);
@@ -65,7 +65,7 @@ public class ConditionScoreTest {
 
     @Test
     public void calcularCSGanadoDePersonaQuierePerderPesoTieneDieta() {
-        Usuario persona = repositorioUsuario.getUsuario("userName");
+        Usuario persona = repositorioUsuario.buscar("userName");
         int csGanado = servicioConditionScore.calculateEffectivity(persona);
 
         assertThat(csGanado).isGreaterThanOrEqualTo(-10);
@@ -76,7 +76,7 @@ public class ConditionScoreTest {
     @Test
     public void conditionScoreSemana2IncrementaPuntaje() {
         final  int VALOR_ESPERADO = 60;
-        Usuario persona = repositorioUsuario.getUsuario("UserName");
+        Usuario persona = repositorioUsuario.buscar("UserName");
         int csGanado = servicioConditionScore.calculateEffectivity(persona);
 
         servicioConditionScore.updateWeeklyCS(persona, csGanado);

@@ -1,5 +1,14 @@
+
 body {
-    background-color: #f5ece2;
+    background-color: #1F1F1F;
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+        height: 100vh;
+}
+
+.sidebar {
+  background-color: #3B3B3B;
 }
 
 .profile_pic {
@@ -9,20 +18,33 @@ body {
     border: 2px solid #000;
     box-shadow: 0px 6px 5px rgb(43, 59, 47);
 }
+.icono-img{
+width: 100px;
+height: 100px;
 
-.profile_topBanner {
-    background-color: rgb(81, 112, 89);
-    border-bottom: 4px solid rgb(43, 59, 47);
+}
+.custom-button {
+    background-color: #62B840;
+}
+.text-color {
+    color: #DAD7CD;
+    font-size: 20px;
 }
 
+h1,h2,h3,h4,h5,h6,p,.col-3, .col-5{
+color: white;
+}
+.canvas{
+color: white;
+}
 .profile_panels{
-    background-color: white;
-    border: 2px solid #b3b3b3;
+    background-color: #3B3B3B;
+    border: 2px solid #3B3B3B;
     border-radius: 3%;
 }
 
 .text-component{
     width: 25%;
     height: 25%;
-    background: white;
+    background: #3B3B3B;
 }

@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.delivery;
 import ar.edu.unlam.tallerweb1.domain.dieta.Dieta;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioProfile;
+import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioUsuario;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,12 +22,15 @@ import java.util.ArrayList;
 public class ControladorProfile {
     private ServicioLogin servicioLogin;
     private ServicioProfile servicioProfile;
+    private ServicioUsuario servicioUsuario;
 
     @Autowired
-    public ControladorProfile(ServicioLogin servicioLogin, ServicioProfile servicioProfile){
+    public ControladorProfile(ServicioLogin servicioLogin, ServicioProfile servicioProfile,ServicioUsuario servicioUsuario){
         this.servicioLogin = servicioLogin;
         this.servicioProfile = servicioProfile;
+        this.servicioUsuario = servicioUsuario;
     }
+
 
     @RequestMapping(path = "/profile", method = RequestMethod.POST)
     public ModelAndView irAPerfil(@ModelAttribute("datosRegistro") DatosLogin datosLogin, HttpServletRequest request) {
@@ -56,22 +60,25 @@ public class ControladorProfile {
         return new ModelAndView("editprofile", model);
     }
 =======
- */   @RequestMapping(path = "/editar-perfil", method = RequestMethod.GET)
-    public ModelAndView irAEditarPerfil(HttpServletRequest request) {
+ */   @RequestMapping(path = "/editar-perfil")
+    public ModelAndView irAEditarPerfil() {
         ModelMap model = new ModelMap();
-
-        String mail = (String) request.getAttribute("user");
-        Usuario usuario = servicioProfile.getUserData(mail);
-
-        model.addAttribute("datosRegistro", usuario);
-
+        model.put("datosCondiciones", new DatosCondiciones());
         return new ModelAndView("editar-perfil", model);
     }
 
 //>>>>>>> b99638a71b37fb9318c5406a369bfec6a20fbc4f
 
-    @RequestMapping(path = "/act-condiciones", method = RequestMethod.POST)
-    public ModelAndView actualizarCondiciones() {
+    @RequestMapping(path = "/editar-perfil", method = RequestMethod.POST)
+    public ModelAndView actualizarCondiciones(@ModelAttribute("datosCondiciones") DatosCondiciones datosCondiciones,HttpServletRequest request) {
+
+     Usuario usuario = servicioUsuario.actualizarCondiciones(datosCondiciones);
+
         return new ModelAndView("act-condiciones");
+    }
+
+    @RequestMapping(path = "/act-condiciones", method = RequestMethod.GET)
+    public ModelAndView actualizacionExitosa() {
+     return new ModelAndView("act-condiciones");
     }
 }

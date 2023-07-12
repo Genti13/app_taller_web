@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.usuarios;
 
 import ar.edu.unlam.tallerweb1.delivery.DatosRegistro;
+import ar.edu.unlam.tallerweb1.delivery.DatosCondiciones;
 import ar.edu.unlam.tallerweb1.domain.conditionScore.ConditionScore;
 import ar.edu.unlam.tallerweb1.domain.dieta.Dieta;
 import ar.edu.unlam.tallerweb1.domain.ejercicio.Ejercicio;
@@ -29,12 +30,15 @@ public class ServicioUsuarioImp implements ServicioUsuario {
         usuario.setAltura(datosRegistro.getAltura());
         usuario.setPeso(datosRegistro.getPeso());
         usuario.setGenero(datosRegistro.getGenero());
-
-        usuario.setEstado(new Cardiaco());
-
-        usuario.setObjetivo(datosRegistro.getObjetivo());
         usuario.setConditionScore(new ConditionScore());
+        return usuario;
+    }
 
+    @Override
+    public Usuario actualizarCondiciones(DatosCondiciones datosCondiciones) {
+        Usuario usuario = new Usuario();
+        usuario.setEstado(new Cardiaco());
+        usuario.setObjetivo(datosCondiciones.getObjetivo());
         return usuario;
     }
 

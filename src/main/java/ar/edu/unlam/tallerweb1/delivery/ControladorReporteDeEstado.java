@@ -23,7 +23,7 @@ public class ControladorReporteDeEstado {
 
 @RequestMapping(path = "/ver-estado", method = RequestMethod.POST)
     public ModelAndView analizarCS(HttpServletRequest request) {
-        Usuario persona = repositorioUsuario.getUsuario((String) request.getSession().getAttribute("UserName"));
+        Usuario persona = repositorioUsuario.buscar((String) request.getSession().getAttribute("UserName"));
         ModelMap model = new ModelMap();
 
         if(servicioConditionScore.getActual(persona) < 50){

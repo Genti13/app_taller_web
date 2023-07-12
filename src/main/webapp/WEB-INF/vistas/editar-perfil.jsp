@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-5">
                 <div id="loginbox" class="mainbox">
-                    <form:form action="act-condiciones" method="POST" modelAttribute="datosRegistro">
+                    <form:form action="act-condiciones" method="POST" modelAttribute="datosCondiciones">
                         <h3 class="form-signin-heading">Para brindarte una experiencia personalizada, completa los siguientes campos</h3>
                         <hr class="colorgraph">
 
